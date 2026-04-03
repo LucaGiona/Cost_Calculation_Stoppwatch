@@ -12,6 +12,7 @@
   <script src="js/stopwatch.js" defer></script>
   <script src="js/steps.js" defer></script>
   <script src="js/accordion.js" defer></script>
+  <script src="js/kalkulation.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -118,6 +119,50 @@
         <ol id="stepList" aria-label="Gespeicherte Arbeitsschritte" aria-live="polite"></ol>
 
         <p id="saveConfirm" role="status" aria-live="polite" class="save-confirm hidden"></p>
+
+      </div>
+
+    </section>
+
+    <!-- Kalkulation -->
+    <section class="steps-section" aria-label="Kalkulation">
+
+      <label class="section-heading">Kalkulation</label>
+      <div class="accordion-body">
+
+     <div class="kalkulation-group">
+  <div class="kalkulation-field kalkulation-field--full">
+    <label for="mwstSatz">MwSt.</label>
+    <select id="mwstSatz" name="mwstSatz" aria-label="Mehrwertsteuersatz auswählen">
+      <option value="7">7 %</option>
+      <option value="19" selected>19 %</option>
+    </select>
+  </div>
+
+  <div class="kalkulation-field">
+    <label for="preisNetto">Preis Netto</label>
+    <input
+      type="text"
+      inputmode="decimal"
+      id="preisNetto"
+      name="preisNetto"
+      placeholder="0.00"
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="kalkulation-field kalkulation-field--result">
+    <label for="preisBrutto">Preis Brutto</label>
+    <input
+      type="text"
+      inputmode="decimal"
+      id="preisBrutto"
+      name="preisBrutto"
+      placeholder="0.00"
+      autocomplete="off"
+    >
+  </div>
+</div>
 
       </div>
 

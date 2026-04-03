@@ -384,3 +384,74 @@
 .hidden {
   display: none;
 }
+
+
+.kalkulation-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.kalkulation-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kalkulation-field--full {
+  grid-column: span 2;
+}
+
+/* Labels */
+
+.kalkulation-field label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Inputs & Select */
+
+.kalkulation-field input,
+.kalkulation-field select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+/* Focus State */
+
+.kalkulation-field input:focus,
+.kalkulation-field select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+/* Placeholder */
+
+.kalkulation-field input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Ergebnis hervorheben */
+
+.kalkulation-field--result input {
+  color: var(--color-accent);
+  font-weight: 600;
+  background: rgba(100, 128, 224, 0.08);
+  border-color: var(--color-accent);
+}
+
+/* Hover (optional, aber stimmig) */
+
+.kalkulation-field input:hover,
+.kalkulation-field select:hover {
+  border-color: var(--color-accent);
+}
