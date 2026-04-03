@@ -6,17 +6,82 @@
   <title>Stoppuhr</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/steps.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="js/stopwatch.js" defer></script>
+  <script src="js/steps.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <div id="display">00:00:00<span id="millis">.00</span></div>
-    <div class="buttons">
-      <button id="btnStart" onclick="start()">Start</button>
-      <button id="btnPause" onclick="pause()">Pause</button>
-      <button id="btnStop" onclick="stop()">Stopp</button>
-    </div>
-  </div>
-  
+  <main class="container">
+
+    <!-- Stoppuhr -->
+    <section class="timer-section" aria-label="Stoppuhr">
+      <div
+        id="display"
+        role="timer"
+        aria-live="off"
+        aria-atomic="true"
+        aria-label="Vergangene Zeit: 0 Stunden, 0 Minuten, 0 Sekunden"
+      >00:00:00<span id="millis">.00</span></div>
+
+      <div class="buttons" role="group" aria-label="Stoppuhr Steuerung">
+        <button id="btnStart" onclick="start()" aria-label="Stoppuhr starten">Start</button>
+        <button id="btnPause" onclick="pause()" aria-label="Stoppuhr pausieren">Pause</button>
+        <button id="btnStop"  onclick="stop()"  aria-label="Stoppuhr stoppen und zurücksetzen">Stopp</button>
+      </div>
+    </section>
+
+    <!-- Arbeitsschritte -->
+    <section class="steps-section" aria-labelledby="stepsHeading">
+      <h2 id="stepsHeading">Arbeitsschritte</h2>
+
+      <!-- Arbeitstitel -->
+      <div class="job-title-group">
+        <label for="jobTitleInput">Arbeitstitel</label>
+        <div class="job-title-row">
+          <input
+            type="text"
+            id="jobTitleInput"
+            name="jobTitleInput"
+            placeholder="z.B. Website Redesign"
+            autocomplete="off"
+            maxlength="80"
+            aria-describedby="jobTitleHint"
+          >
+          <select
+            id="jobTitleSelect"
+            aria-label="Gespeicherte Arbeitstitel auswählen"
+            onchange="selectJobTitle()"
+          >
+            <option value="">— Titel auswählen —</option>
+          </select>
+        </div>
+        <span id="jobTitleHint" class="field-hint">Titel eingeben oder aus gespeicherten auswählen</span>
+      </div>
+
+      <div class="step-input-group">
+        <label for="stepInput">Name des Schrittes</label>
+        <input
+          type="text"
+          id="stepInput"
+          name="stepInput"
+          placeholder="z.B. Konzept entwickeln"
+          aria-required="false"
+          autocomplete="off"
+          maxlength="100"
+        >
+      </div>
+
+      <div class="step-actions" role="group" aria-label="Schritte verwalten">
+        <button id="btnAddStep"  onclick="addStep()">Weiteren Schritt</button>
+        <button id="btnSaveSteps" onclick="saveSteps()">Speichern</button>
+      </div>
+
+      <ol id="stepList" aria-label="Gespeicherte Arbeitsschritte" aria-live="polite"></ol>
+
+      <p id="saveConfirm" role="status" aria-live="polite" class="save-confirm hidden"></p>
+    </section>
+
+  </main>
 </body>
 </html>

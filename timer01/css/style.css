@@ -1,3 +1,19 @@
+:root {
+  --color-start:  #2ecc71;
+  --color-pause:  #f1c40f;
+  --color-stop:   #e74c3c;
+  --color-accent: #6480e0;
+  --color-edit:   #f1c40f;
+  --color-delete: #e74c3c;
+  --color-save:   #2ecc71;
+  --color-cancel: #444466;
+  --bg-body:      #1a1a2e;
+  --bg-card:      #12122a;
+  --border:       #333a5c;
+  --text:         #e0e0e0;
+  --text-muted:   #aaaaaa;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,23 +21,21 @@
 }
 
 body {
-  background: #1a1a2e;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  background: var(--bg-body);
   font-family: 'IBM Plex Mono', monospace;
-  padding: 20px;
+  padding: 40px 20px 60px;
 }
 
 .container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
 #display {
   font-size: clamp(36px, 10vw, 80px);
-  color: #e0e0e0;
+  color: var(--text);
   letter-spacing: 4px;
   margin-bottom: 40px;
   text-shadow: 0 0 20px rgba(100, 200, 255, 0.4);
@@ -30,7 +44,7 @@ body {
 
 #millis {
   font-size: clamp(24px, 6vw, 50px);
-  color: #aaaaaa;
+  color: var(--text-muted);
 }
 
 .buttons {
@@ -57,9 +71,9 @@ button:active {
   transform: scale(0.95);
 }
 
-#btnStart  { background: #2ecc71; color: #fff; }
-#btnPause  { background: #f1c40f; color: #333; }
-#btnStop   { background: #e74c3c; color: #fff; }
+#btnStart  { background: var(--color-start);  color: #fff; }
+#btnPause  { background: var(--color-pause);  color: #333; }
+#btnStop   { background: var(--color-stop);   color: #fff; }
 
 #btnStart:hover  { opacity: 0.85; }
 #btnPause:hover  { opacity: 0.85; }
