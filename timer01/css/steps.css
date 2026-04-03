@@ -11,6 +11,18 @@
 
 .steps-section h2 {
   font-size: clamp(20px, 5vw, 28px);
+  font-weight: bold;
+  color: var(--text);
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.section-heading {
+  display: block;
+  font-size: clamp(20px, 5vw, 28px);
+  font-weight: bold;
   color: var(--text);
   margin-bottom: 24px;
   letter-spacing: 2px;
@@ -122,12 +134,6 @@
   margin-bottom: 16px;
 }
 
-.step-input-group label {
-  font-size: 13px;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
 
 .step-input-group input {
   background: var(--bg-card);

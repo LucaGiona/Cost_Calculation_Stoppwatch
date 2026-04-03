@@ -1,0 +1,33 @@
+.section-heading {
+  cursor: pointer;
+  user-select: none;
+}
+
+.section-heading::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-right: 2.5px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
+  transform: rotate(-45deg);
+  margin-right: 12px;
+  transition: transform 0.25s ease;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+.section-heading[aria-expanded="true"]::before {
+  transform: rotate(45deg);
+}
+
+.accordion-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+}
+
+.section-heading[aria-expanded="true"] + .accordion-body {
+  max-height: 2000px;
+}
