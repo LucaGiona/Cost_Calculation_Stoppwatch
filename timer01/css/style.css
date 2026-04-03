@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1a1a2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 20px;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+}
+
+#display {
+  font-size: clamp(36px, 10vw, 80px);
+  color: #e0e0e0;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+  text-shadow: 0 0 20px rgba(100, 200, 255, 0.4);
+  white-space: nowrap;
+}
+
+#millis {
+  font-size: clamp(24px, 6vw, 50px);
+  color: #aaaaaa;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  width: clamp(90px, 25vw, 120px);
+  height: clamp(44px, 10vw, 50px);
+  font-size: clamp(14px, 3.5vw, 18px);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  touch-action: manipulation;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#btnStart  { background: #2ecc71; color: #fff; }
+#btnPause  { background: #f1c40f; color: #333; }
+#btnStop   { background: #e74c3c; color: #fff; }
+
+#btnStart:hover  { opacity: 0.85; }
+#btnPause:hover  { opacity: 0.85; }
+#btnStop:hover   { opacity: 0.85; }
+
+@media (max-width: 360px) {
+  #display {
+    letter-spacing: 2px;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+}
