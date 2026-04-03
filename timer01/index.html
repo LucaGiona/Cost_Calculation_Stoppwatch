@@ -37,16 +37,21 @@
 
       <!-- Arbeitstitel -->
       <div class="job-title-group">
-        <label for="jobTitleInput">Arbeitstitel</label>
+        <div class="job-title-label-row">
+          <label for="jobTitleInput">Arbeitstitel</label>
+          <button id="btnNewTitle" class="btn-new-title" onclick="newTitle()" aria-label="Neuen Arbeitstitel anlegen">Neu</button>
+        </div>
         <div class="job-title-row">
           <input
             type="text"
             id="jobTitleInput"
             name="jobTitleInput"
-            placeholder="z.B. Website Redesign"
+            placeholder="z.B. Rezeptur nachmachen"
             autocomplete="off"
             maxlength="80"
-            aria-describedby="jobTitleHint"
+            aria-describedby="jobTitleHint jobTitleError"
+            aria-required="true"
+            required
           >
           <select
             id="jobTitleSelect"
@@ -56,16 +61,43 @@
             <option value="">— Titel auswählen —</option>
           </select>
         </div>
-        <span id="jobTitleHint" class="field-hint">Titel eingeben oder aus gespeicherten auswählen</span>
+          <span id="jobTitleHint" class="field-hint">Titel eingeben oder aus gespeicherten auswählen</span>
+          <span id="jobTitleError" class="field-error hidden" role="alert">Bitte einen Arbeitstitel eingeben.</span>
+        <div class="title-action-btns">
+          <button
+            id="btnEditTitle"
+            class="btn-title-edit"
+            onclick="editTitle()"
+            aria-label="Arbeitstitel bearbeiten"
+            title="Titel bearbeiten"
+            disabled
+          ><i data-lucide="pencil"></i></button>
+          <button
+            id="btnDeleteTitle"
+            class="btn-title-delete"
+            onclick="deleteTitle()"
+            aria-label="Arbeitstitel und alle Schritte löschen"
+            title="Titel und alle Schritte löschen"
+            disabled
+          ><i data-lucide="trash-2"></i></button>
+          <button
+            id="btnSaveTitle"
+            class="btn-title-save-main"
+            onclick="saveTitle()"
+            aria-label="Arbeitstitel speichern"
+            disabled
+          >Speichern</button>
+        </div>
+       
       </div>
 
       <div class="step-input-group">
-        <label for="stepInput">Name des Schrittes</label>
+        <label for="stepInput">Schritte definieren</label>
         <input
           type="text"
           id="stepInput"
           name="stepInput"
-          placeholder="z.B. Konzept entwickeln"
+          placeholder="z.B. Vorberitung Utensilien"
           aria-required="false"
           autocomplete="off"
           maxlength="100"
@@ -74,7 +106,7 @@
 
       <div class="step-actions" role="group" aria-label="Schritte verwalten">
         <button id="btnAddStep"  onclick="addStep()">Weiteren Schritt</button>
-        <button id="btnSaveSteps" onclick="saveSteps()">Speichern</button>
+        <button id="btnSaveSteps" class="btnSaveSteps" onclick="saveSteps()">Speichern</button>
       </div>
 
       <ol id="stepList" aria-label="Gespeicherte Arbeitsschritte" aria-live="polite"></ol>

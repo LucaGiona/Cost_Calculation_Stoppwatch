@@ -25,6 +25,31 @@
   margin-bottom: 28px;
 }
 
+.job-title-label-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-new-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--color-start);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  touch-action: manipulation;
+}
+
+.btn-new-title:hover  { opacity: 0.85; }
+.btn-new-title:active { transform: scale(0.95); }
+
 .job-title-group label {
   font-size: 13px;
   color: var(--text-muted);
@@ -78,6 +103,16 @@
   font-size: 12px;
   color: #444466;
   letter-spacing: 0.5px;
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--color-delete);
+  letter-spacing: 0.5px;
+}
+
+.input--error {
+  border-color: var(--color-delete) !important;
 }
 
 .step-input-group {
@@ -134,10 +169,10 @@
 .step-actions button:active { transform: scale(0.95); }
 
 #btnAddStep   { background: var(--color-accent); color: #fff; }
-#btnSaveSteps { background: var(--color-save);   color: #fff; }
+.btnSaveSteps { background: var(--color-save);   color: #fff; }
 
 #btnAddStep:hover   { opacity: 0.85; }
-#btnSaveSteps:hover { opacity: 0.85; }
+.btnSaveSteps:hover { opacity: 0.85; }
 
 /* Liste */
 #stepList {
@@ -230,6 +265,114 @@
   font-size: 14px;
   color: var(--color-save);
   letter-spacing: 1px;
+}
+
+/* Titel-Aktions-Buttons (Edit + Delete) */
+.title-action-btns {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+
+.btn-title-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: clamp(44px, 10vw, 48px);
+  border: none;
+  border-radius: 8px;
+  background: var(--color-edit);
+  color: #333;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  touch-action: manipulation;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.btn-title-edit:hover  { opacity: 0.85; }
+.btn-title-edit:active { transform: scale(0.95); }
+
+.btn-title-edit:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.btn-title-edit svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.btn-title-save-main {
+  height: clamp(44px, 10vw, 48px);
+  padding: 0 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-save);
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 3vw, 15px);
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  touch-action: manipulation;
+ 
+}
+
+.btn-title-save-main:hover  { opacity: 0.85; }
+.btn-title-save-main:active { transform: scale(0.95); }
+
+.btn-title-save-main:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* Titel löschen Button */
+.btn-title-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: clamp(44px, 10vw, 48px);
+  border: none;
+  border-radius: 8px;
+  background: var(--color-delete);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  touch-action: manipulation;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.btn-title-delete:hover  { opacity: 0.85; }
+.btn-title-delete:active { transform: scale(0.95); }
+
+.btn-title-delete:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.btn-title-delete svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+/* Disabled state für Schritt-Eingabe */
+.step-input-group input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#btnAddStep:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .hidden {
