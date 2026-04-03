@@ -3,6 +3,8 @@ let elapsed = 0;
 let timerInterval = null;
 let running = false;
 
+function getElapsed() { return elapsed; }
+
 function updateDisplay() {
   const total = elapsed;
   const ms = Math.floor((total % 1000) / 10);

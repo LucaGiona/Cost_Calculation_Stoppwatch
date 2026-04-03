@@ -1,0 +1,152 @@
+/* ─── timer-steps.css ────────────────────────────────────────────────────────
+   Styling für die Step-Session: aktiv, done, pending, Zeitbadge, Total
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ─── Schritt-Zustände ───────────────────────────────────────────────────────*/
+
+#stepList li.step--active {
+  border-color: var(--color-accent);
+  background: rgba(100, 128, 224, 0.12);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+#stepList li.step--active::before {
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(100, 128, 224, 0.6);
+  animation: pulse-badge 1.2s ease-in-out infinite;
+}
+
+#stepList li.step--done {
+  opacity: 0.6;
+  border-color: var(--color-save);
+}
+
+#stepList li.step--done::before {
+  background: var(--color-save);
+}
+
+#stepList li.step--pending {
+  opacity: 0.4;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* ─── Zeit-Badge neben dem Schritt ───────────────────────────────────────────*/
+
+.step-time {
+  margin-left: auto;
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--color-save);
+  background: rgba(66, 18, 222, 0.15);
+  border: 1px solid var(--color-save);
+  border-radius: 5px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Total ──────────────────────────────────────────────────────────────────*/
+
+.session-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(100, 128, 224, 0.08);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  animation: fade-in 0.4s ease;
+}
+
+.session-total.hidden {
+  display: none;
+}
+
+.session-total__label {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.session-total__time {
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: bold;
+  color: var(--color-accent);
+  letter-spacing: 2px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Session-Buttons ────────────────────────────────────────────────────────*/
+
+.session-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+#btnSessionStart {
+  background: var(--color-start);
+  color: #fff;
+  flex: 1;
+  min-width: 140px;
+  height: clamp(44px, 10vw, 48px);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 3vw, 15px);
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  touch-action: manipulation;
+}
+
+#btnSessionNext {
+  background: var(--color-accent);
+  color: #fff;
+  flex: 2;
+  min-width: 160px;
+  height: clamp(44px, 10vw, 48px);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 3vw, 15px);
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  touch-action: manipulation;
+}
+
+#btnSessionCancel {
+  background: var(--color-cancel);
+  color: #ccc;
+  flex: 1;
+  min-width: 100px;
+  height: clamp(44px, 10vw, 48px);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 3vw, 15px);
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  touch-action: manipulation;
+}
+
+#btnSessionStart:hover,
+#btnSessionNext:hover,
+#btnSessionCancel:hover  { opacity: 0.85; }
+
+#btnSessionStart:active,
+#btnSessionNext:active,
+#btnSessionCancel:active { transform: scale(0.95); }

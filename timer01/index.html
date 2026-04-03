@@ -8,11 +8,13 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/steps.css">
   <link rel="stylesheet" href="css/accordion.css">
+  <link rel="stylesheet" href="css/timer-steps.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="js/stopwatch.js" defer></script>
   <script src="js/steps.js" defer></script>
   <script src="js/accordion.js" defer></script>
   <script src="js/kalkulation.js" defer></script>
+  <script src="js/timer-steps.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -117,6 +119,27 @@
         </div>
 
         <ol id="stepList" aria-label="Gespeicherte Arbeitsschritte" aria-live="polite"></ol>
+
+        <!-- Session-Buttons -->
+        <div class="session-actions" role="group" aria-label="Session steuern">
+          <button
+            id="btnSessionStart"
+            onclick="startSession()"
+            aria-label="Session starten"
+          >Session starten</button>
+          <button
+            id="btnSessionNext"
+            onclick="nextStep()"
+            class="hidden"
+            aria-label="Nächster Schritt"
+          >Nächster Schritt</button>
+          <button
+            id="btnSessionCancel"
+            onclick="cancelSession()"
+            class="hidden"
+            aria-label="Session abbrechen"
+          >Abbrechen</button>
+        </div>
 
         <p id="saveConfirm" role="status" aria-live="polite" class="save-confirm hidden"></p>
 
