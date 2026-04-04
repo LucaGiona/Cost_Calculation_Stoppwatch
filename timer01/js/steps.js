@@ -253,6 +253,14 @@ function makeIconBtn(iconName, className, ariaLabel, onClick) {
   return btn;
 }
 
+function updateStepPlaceholder() {
+  const input = document.getElementById('stepInput');
+  if (!input || input.classList.contains('input--error')) return;
+  input.placeholder = steps.length > 0
+    ? 'Noch mehr Schritte?'
+    : 'z.B. Vorbereitung Utensilien';
+}
+
 function renderSteps() {
   const list = document.getElementById('stepList');
   list.innerHTML = '';
@@ -273,6 +281,7 @@ function renderSteps() {
   });
 
   lucide.createIcons();
+  updateStepPlaceholder();
 }
 
 function editStep(index) {

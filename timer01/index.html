@@ -98,7 +98,7 @@
           </div>
         </div>
 
-      <label for="stepInput" class="section-heading">Schritte definieren</label>
+      <label for="stepInput" class="section-heading">Schritte definieren <br> & Stoppuhr</label>
       <div class="accordion-body">
 
         <div class="step-input-group">
@@ -126,19 +126,7 @@
             id="btnSessionStart"
             onclick="startSession()"
             aria-label="Session starten"
-          >Session starten</button>
-          <button
-            id="btnSessionNext"
-            onclick="nextStep()"
-            class="hidden"
-            aria-label="Nächster Schritt"
-          >Nächster Schritt</button>
-          <button
-            id="btnSessionCancel"
-            onclick="cancelSession()"
-            class="hidden"
-            aria-label="Session abbrechen"
-          >Abbrechen</button>
+          >Stoppuhr starten</button>
         </div>
 
         <p id="saveConfirm" role="status" aria-live="polite" class="save-confirm hidden"></p>
@@ -192,5 +180,25 @@
     </section>
 
   </main>
+
+  <!-- Session Drawer -->
+  <div id="sessionDrawer" class="session-drawer hidden" role="dialog" aria-modal="true" aria-label="Laufende Session">
+    <div class="session-drawer__backdrop" onclick="handleBackdropClick()"></div>
+    <div class="session-drawer__panel">
+      <div class="session-drawer__timer" aria-live="off" aria-atomic="true">
+        <span id="drawerTime">00:00:00</span><span id="drawerMillis">.00</span>
+      </div>
+      <ol id="drawerStepList" class="session-drawer__steps" aria-label="Schritte der Session"></ol>
+      <div id="drawerTotal" class="session-drawer__total hidden">
+        <span class="session-drawer__total-label">Total</span>
+        <span id="drawerTotalTime" class="session-drawer__total-time"></span>
+      </div>
+      <div class="session-drawer__actions">
+        <button id="btnSessionNext" onclick="nextStep()" aria-label="Nächster Schritt">Nächster Schritt</button>
+        <button id="btnSessionCancel" onclick="cancelSession()" aria-label="Session abbrechen">Abbrechen / Stop</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

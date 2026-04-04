@@ -28,21 +28,40 @@ function pad2(n) {
 // ─── Session starten ──────────────────────────────────────────────────────────
 
 function startSession() {
-  // Schritte müssen vorhanden sein
   if (typeof steps === 'undefined' || steps.length === 0) {
-    alert('Bitte zuerst Arbeitsschritte definieren und speichern.');
+    const input = document.getElementById('stepInput');
+    if (input) {
+      input.placeholder = 'Bitte zuerst Schritte eingeben!';
+      input.classList.add('input--error');
+      setTimeout(() => {
+        input.placeholder = 'z.B. Vorbereitung Utensilien';
+        input.classList.remove('input--error');
+      }, 2500);
+    }
     return;
   }
 
-  // Stoppuhr starten (falls noch nicht läuft)
-  start();
+  // Fehler-State im Input zurücksetzen falls noch vorhanden
+  const stepInput = document.getElementById('stepInput');
+  if (stepInput) {
+    stepInput.classList.remove('input--error');
+    stepInput.placeholder = steps.length > 0
+      ? 'Weitere Schritte hinzufügen?'
+      : 'z.B. Vorbereitung Utensilien';
+  }
+
+  stop();  // Timer auf 0 zurücksetzen
+  start(); // neu starten
 
   sessionActive    = true;
   currentStepIndex = 0;
   stepStartTime    = getElapsed();
   stepDurations    = [];
 
-  renderSessionState();
+  openDrawer();
+  renderDrawerSteps();
+  updateDrawerState();
+  updateDrawerNextButton();
   updateSessionButtons();
 }
 
@@ -54,8 +73,8 @@ function nextStep() {
   const duration = getElapsed() - stepStartTime;
   stepDurations[currentStepIndex] = duration;
 
-  // Zeit neben dem Schritt anzeigen
-  showStepTime(currentStepIndex, duration);
+  showDrawerStepTime(currentStepIndex, duration);
+  showStepTime(currentStepIndex, duration); // auch auf Hauptseite
 
   currentStepIndex++;
   stepStartTime = getElapsed();
@@ -65,19 +84,40 @@ function nextStep() {
     return;
   }
 
-  renderSessionState();
-  updateSessionButtons();
+  updateDrawerState();
+  updateDrawerNextButton();
+  renderSessionState(); // Hauptseite mitführen
 }
 
 // ─── Session beenden ──────────────────────────────────────────────────────────
 
 function endSession() {
-  pause(); // Stoppuhr anhalten
-
+  pause();
   sessionActive = false;
 
   const total = stepDurations.reduce((sum, d) => sum + d, 0);
+
+  // Total im Drawer anzeigen
+  const totalEl     = document.getElementById('drawerTotal');
+  const totalTimeEl = document.getElementById('drawerTotalTime');
+  if (totalEl && totalTimeEl) {
+    totalTimeEl.textContent = formatDuration(total);
+    totalEl.classList.remove('hidden');
+  }
+
+  // Total auch auf Hauptseite
   showTotal(total);
+
+  // Drawer-Buttons: Weiter ausblenden, Abbrechen → Schließen
+  const btnNext = document.getElementById('btnSessionNext');
+  if (btnNext) btnNext.classList.add('hidden');
+
+  const btnCancel = document.getElementById('btnSessionCancel');
+  if (btnCancel) {
+    btnCancel.textContent = 'Schließen';
+    btnCancel.onclick     = closeDrawer;
+  }
+
   updateSessionButtons();
 }
 
@@ -86,12 +126,117 @@ function endSession() {
 function cancelSession() {
   if (!sessionActive) return;
   sessionActive = false;
-  stop(); // Stoppuhr zurücksetzen
+  stop();
+  closeDrawer();
   clearSessionUI();
   updateSessionButtons();
 }
 
-// ─── UI: aktiven Schritt hervorheben, abgeschlossene markieren ────────────────
+// ─── Backdrop-Klick ───────────────────────────────────────────────────────────
+
+function handleBackdropClick() {
+  if (sessionActive) {
+    cancelSession();
+  } else {
+    closeDrawer();
+  }
+}
+
+// ─── Drawer öffnen / schließen ────────────────────────────────────────────────
+
+function openDrawer() {
+  const drawer = document.getElementById('sessionDrawer');
+  if (!drawer) return;
+  drawer.classList.remove('hidden');
+
+  // Reset: Total ausblenden, Buttons zurücksetzen
+  const totalEl = document.getElementById('drawerTotal');
+  if (totalEl) totalEl.classList.add('hidden');
+
+  const btnNext = document.getElementById('btnSessionNext');
+  if (btnNext) btnNext.classList.remove('hidden');
+
+  const btnCancel = document.getElementById('btnSessionCancel');
+  if (btnCancel) {
+    btnCancel.textContent = 'Abbrechen / Stop';
+    btnCancel.onclick     = cancelSession;
+  }
+}
+
+function closeDrawer() {
+  const drawer = document.getElementById('sessionDrawer');
+  if (drawer) drawer.classList.add('hidden');
+}
+
+// ─── Drawer: Schritte rendern ─────────────────────────────────────────────────
+
+function renderDrawerSteps() {
+  const list = document.getElementById('drawerStepList');
+  if (!list) return;
+  list.innerHTML = '';
+
+  steps.forEach((step, i) => {
+    const li = document.createElement('li');
+
+    const numSpan = document.createElement('span');
+    numSpan.className   = 'step-num';
+    numSpan.textContent = (i + 1) + '.';
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className   = 'step-label';
+    labelSpan.textContent = step;
+
+    li.appendChild(numSpan);
+    li.appendChild(labelSpan);
+    list.appendChild(li);
+  });
+}
+
+// ─── Drawer: Schritt-Zustände aktualisieren ───────────────────────────────────
+
+function updateDrawerState() {
+  const listItems = document.querySelectorAll('#drawerStepList li');
+
+  listItems.forEach((li, i) => {
+    li.classList.remove('step--active', 'step--done', 'step--pending');
+
+    if (i < currentStepIndex) {
+      li.classList.add('step--done');
+    } else if (i === currentStepIndex) {
+      li.classList.add('step--active');
+      li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      li.classList.add('step--pending');
+    }
+  });
+}
+
+// ─── Drawer: Zeit-Badge neben einem Schritt ───────────────────────────────────
+
+function showDrawerStepTime(index, ms) {
+  const listItems = document.querySelectorAll('#drawerStepList li');
+  if (!listItems[index]) return;
+
+  const existing = listItems[index].querySelector('.step-time');
+  if (existing) existing.remove();
+
+  const badge = document.createElement('span');
+  badge.className   = 'step-time';
+  badge.textContent = formatDuration(ms);
+  listItems[index].appendChild(badge);
+}
+
+// ─── Drawer: Nächster-Schritt-Button Text ─────────────────────────────────────
+
+function updateDrawerNextButton() {
+  const btnNext = document.getElementById('btnSessionNext');
+  if (!btnNext) return;
+  btnNext.textContent = (currentStepIndex === steps.length - 1)
+    ? 'Fertig'
+    : 'Nächster Schritt';
+}
+
+// ─── Hauptseite: aktiven Schritt hervorheben ──────────────────────────────────
 
 function renderSessionState() {
   const listItems = document.querySelectorAll('#stepList li');
@@ -103,37 +248,34 @@ function renderSessionState() {
       li.classList.add('step--done');
     } else if (i === currentStepIndex) {
       li.classList.add('step--active');
-      // Scroll in Sicht
-      li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
       li.classList.add('step--pending');
     }
   });
 }
 
-// ─── UI: Zeit neben einem Schritt einblenden ──────────────────────────────────
+// ─── Hauptseite: Zeit-Badge ───────────────────────────────────────────────────
 
 function showStepTime(index, ms) {
   const listItems = document.querySelectorAll('#stepList li');
   if (!listItems[index]) return;
 
-  // Vorhandenes Zeit-Badge entfernen falls vorhanden
   const existing = listItems[index].querySelector('.step-time');
   if (existing) existing.remove();
 
   const badge = document.createElement('span');
-  badge.className = 'step-time';
+  badge.className   = 'step-time';
   badge.textContent = formatDuration(ms);
   listItems[index].appendChild(badge);
 }
 
-// ─── UI: Total anzeigen ───────────────────────────────────────────────────────
+// ─── Hauptseite: Total anzeigen ───────────────────────────────────────────────
 
 function showTotal(ms) {
   let totalEl = document.getElementById('sessionTotal');
   if (!totalEl) {
     totalEl = document.createElement('div');
-    totalEl.id = 'sessionTotal';
+    totalEl.id        = 'sessionTotal';
     totalEl.className = 'session-total';
     document.getElementById('stepList').after(totalEl);
   }
@@ -143,7 +285,7 @@ function showTotal(ms) {
   totalEl.classList.remove('hidden');
 }
 
-// ─── UI: Session-UI zurücksetzen ──────────────────────────────────────────────
+// ─── Hauptseite: Session-UI zurücksetzen ──────────────────────────────────────
 
 function clearSessionUI() {
   document.querySelectorAll('#stepList li').forEach(li => {
@@ -156,30 +298,16 @@ function clearSessionUI() {
   if (totalEl) totalEl.classList.add('hidden');
 }
 
-// ─── Buttons ein-/ausblenden ──────────────────────────────────────────────────
+// ─── Session-Start-Button ein-/ausblenden ─────────────────────────────────────
 
 function updateSessionButtons() {
-  const btnStart  = document.getElementById('btnSessionStart');
-  const btnNext   = document.getElementById('btnSessionNext');
-  const btnCancel = document.getElementById('btnSessionCancel');
-
-  if (!btnStart || !btnNext || !btnCancel) return;
+  const btnStart = document.getElementById('btnSessionStart');
+  if (!btnStart) return;
 
   if (sessionActive) {
     btnStart.classList.add('hidden');
-    btnNext.classList.remove('hidden');
-    btnCancel.classList.remove('hidden');
-
-    // Letzter Schritt: Button-Text anpassen
-    if (currentStepIndex === steps.length - 1) {
-      btnNext.textContent = 'Fertig';
-    } else {
-      btnNext.textContent = 'Nächster Schritt';
-    }
   } else {
     btnStart.classList.remove('hidden');
-    btnNext.classList.add('hidden');
-    btnCancel.classList.add('hidden');
   }
 }
 
@@ -188,12 +316,30 @@ function updateSessionButtons() {
 document.addEventListener('DOMContentLoaded', () => {
   updateSessionButtons();
 
+  // Placeholder im Step-Input zurücksetzen sobald Schritte in der Liste erscheinen
+  const stepList = document.getElementById('stepList');
+  if (stepList) {
+    const observer = new MutationObserver(() => {
+      const input = document.getElementById('stepInput');
+      if (!input) return;
+      const hasSteps = stepList.children.length > 0;
+      if (hasSteps) {
+        input.classList.remove('input--error');
+        if (input.placeholder === 'Bitte zuerst Schritte eingeben!') {
+          input.placeholder = 'Weitere Schritte hinzufügen?';
+        }
+      }
+    });
+    observer.observe(stepList, { childList: true });
+  }
+
   // Wenn Stoppuhr-Stop gedrückt wird, Session ebenfalls abbrechen
   const originalStop = window.stop;
   window.stop = function () {
     originalStop();
     if (sessionActive) {
       sessionActive = false;
+      closeDrawer();
       clearSessionUI();
       updateSessionButtons();
     }

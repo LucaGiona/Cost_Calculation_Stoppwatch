@@ -148,7 +148,8 @@
   width: 100%;
 }
 
-.step-input-group input::placeholder { color: #555577; }
+.step-input-group input::placeholder       { color: #555577; }
+.step-input-group input.input--error::placeholder { color: var(--color-delete); }
 .step-input-group input:focus        { border-color: var(--color-accent); }
 
 .step-actions {

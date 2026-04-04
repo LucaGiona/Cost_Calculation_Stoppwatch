@@ -12,9 +12,16 @@ function updateDisplay() {
   const minutes = Math.floor(total / 60000) % 60;
   const hours = Math.floor(total / 3600000);
 
-  document.getElementById('display').childNodes[0].textContent =
-    pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
-  document.getElementById('millis').textContent = '.' + pad(ms);
+  const timeStr   = pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+  const millisStr = '.' + pad(ms);
+
+  document.getElementById('display').childNodes[0].textContent = timeStr;
+  document.getElementById('millis').textContent = millisStr;
+
+  const drawerTime   = document.getElementById('drawerTime');
+  const drawerMillis = document.getElementById('drawerMillis');
+  if (drawerTime)   drawerTime.textContent   = timeStr;
+  if (drawerMillis) drawerMillis.textContent = millisStr;
 }
 
 function pad(n) {
