@@ -1,0 +1,18 @@
+# persönliche Notizen
+Notizen/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# temporäre Dateien
+*.tmp
+*.swp
+
+# VS Code
+.vscode/
+
+# Node (falls du später nutzt)
+node_modules/
