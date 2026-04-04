@@ -14,6 +14,7 @@
   <script src="js/steps.js" defer></script>
   <script src="js/accordion.js" defer></script>
   <script src="js/kalkulation.js" defer></script>
+  <script src="js/costKalkulation.js" defer></script>
   <script src="js/timer-steps.js" defer></script>
 </head>
 <body>
@@ -125,25 +126,37 @@
       <div class="accordion-body">
 
      <div class="kalkulation-group">
-  <div class="kalkulation-field">
+  <div class="kalkulation-field kalkulation-field--full">
     <label for="importiertTitel">Arbeitstitel</label>
     <input
       type="text"
       id="importiertTitel"
-      readonly
-      placeholder="—"
-      aria-label="Arbeitstitel der importierten Session"
+      placeholder="z.B. Rezeptur nachmachen"
+      autocomplete="off"
+      aria-label="Arbeitstitel"
     >
   </div>
 
   <div class="kalkulation-field">
-    <label for="importiertZeit">Importierte Zeit</label>
+    <label for="importiertZeit">gestoppte Zeit Schritte import:</label>
     <input
       type="text"
       id="importiertZeit"
       readonly
       placeholder="—"
       aria-label="Aus Session importierte Gesamtzeit"
+    >
+  </div>
+
+  <div class="kalkulation-field">
+    <label for="zeitManuell">Zeit manuell eingeben (Richtwert)</label>
+    <input
+      type="text"
+      inputmode="decimal"
+      id="zeitManuell"
+      placeholder="z.B. 02:30"
+      autocomplete="off"
+      aria-label="Zeit manuell eingeben im Format MM:SS"
     >
   </div>
 
@@ -171,26 +184,70 @@
 
   <div class="kalkulation-field">
     <label for="preisNetto">Preis Netto</label>
-    <input
-      type="text"
-      inputmode="decimal"
-      id="preisNetto"
-      name="preisNetto"
-      placeholder="0.00"
-      autocomplete="off"
-    >
+    <div class="input-currency">
+      <input
+        type="text"
+        inputmode="decimal"
+        id="preisNetto"
+        name="preisNetto"
+        placeholder="0.00"
+        autocomplete="off"
+      >
+      <span class="currency-symbol">€</span>
+    </div>
   </div>
 
   <div class="kalkulation-field kalkulation-field--result">
     <label for="preisBrutto">Preis Brutto</label>
-    <input
-      type="text"
-      inputmode="decimal"
-      id="preisBrutto"
-      name="preisBrutto"
-      placeholder="0.00"
-      autocomplete="off"
-    >
+    <div class="input-currency">
+      <input
+        type="text"
+        inputmode="decimal"
+        id="preisBrutto"
+        name="preisBrutto"
+        placeholder="0.00"
+        autocomplete="off"
+      >
+      <span class="currency-symbol">€</span>
+    </div>
+  </div>
+
+  <div class="kalkulation-field kalkulation-field--full kalkulation-divider"></div>
+
+  <div class="kalkulation-field kalkulation-field--full">
+    <label>Produktionskosten Brutto auf Zeit</label>
+    <div class="mwst-row">
+      <select id="produktionZeit" aria-label="Produktionszeitraum auswählen">
+        <option value="manual">Manuell</option>
+        <option value="15">15 min</option>
+        <option value="30">30 min</option>
+        <option value="45">45 min</option>
+      </select>
+      <input
+        type="text"
+        inputmode="decimal"
+        id="produktionManual"
+        placeholder="Minuten"
+        autocomplete="off"
+        maxlength="6"
+        aria-label="Manuelle Produktionszeit in Minuten"
+      >
+      <span class="mwst-unit">min</span>
+    </div>
+  </div>
+
+  <div class="kalkulation-field kalkulation-field--result">
+    <label for="umsatzStunde">Umsatz / Zeit</label>
+    <div class="input-currency">
+      <input
+        type="text"
+        id="umsatzStunde"
+        readonly
+        placeholder="—"
+        aria-label="Berechneter Umsatz pro gewähltem Zeitraum"
+      >
+      <span class="currency-symbol">€</span>
+    </div>
   </div>
 </div>
 

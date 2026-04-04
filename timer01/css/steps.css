@@ -411,6 +411,22 @@
   cursor: default;
 }
 
+.input-currency {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-currency input {
+  flex: 1;
+}
+
+.currency-symbol {
+  font-size: 1rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
 .mwst-row {
   display: flex;
   align-items: center;

@@ -215,6 +215,7 @@ function exportToKalkulation() {
     importZeit.value  = totalTimeEl.textContent;
     if (importTitel && titelInput) importTitel.value = titelInput.value.trim();
     closeDrawer();
+    recalcUmsatz();
     importZeit.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
