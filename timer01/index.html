@@ -10,12 +10,15 @@
   <link rel="stylesheet" href="css/accordion.css">
   <link rel="stylesheet" href="css/timer-steps.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="js/appState.js" defer></script>
   <script src="js/stopwatch.js" defer></script>
+  <script src="js/storage.js" defer></script>
   <script src="js/steps.js" defer></script>
   <script src="js/accordion.js" defer></script>
   <script src="js/kalkulation.js" defer></script>
   <script src="js/costKalkulation.js" defer></script>
   <script src="js/timer-steps.js" defer></script>
+  <script src="js/ui.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -31,7 +34,7 @@
         <div class="job-title-group">
           <div class="job-title-label-row">
             <label for="jobTitleInput">Arbeitstitel</label>
-            <button id="btnNewTitle" class="btn-new-title" onclick="newTitle()" aria-label="Neuen Arbeitstitel anlegen">Neu</button>
+            <button id="btnNewTitle" class="btn-new-title" aria-label="Neuen Arbeitstitel anlegen">Neu</button>
           </div>
           <div class="job-title-row">
             <input
@@ -48,7 +51,6 @@
             <select
               id="jobTitleSelect"
               aria-label="Gespeicherte Arbeitstitel auswählen"
-              onchange="selectJobTitle()"
             >
               <option value="">— Titel auswählen —</option>
             </select>
@@ -59,7 +61,6 @@
             <button
               id="btnEditTitle"
               class="btn-title-edit"
-              onclick="editTitle()"
               aria-label="Arbeitstitel bearbeiten"
               title="Titel bearbeiten"
               disabled
@@ -67,7 +68,6 @@
             <button
               id="btnDeleteTitle"
               class="btn-title-delete"
-              onclick="deleteTitle()"
               aria-label="Arbeitstitel und alle Schritte löschen"
               title="Titel und alle Schritte löschen"
               disabled
@@ -75,7 +75,6 @@
             <button
               id="btnSaveTitle"
               class="btn-title-save-main"
-              onclick="saveTitle()"
               aria-label="Arbeitstitel speichern"
               disabled
             >Speichern</button>
@@ -98,8 +97,8 @@
         </div>
 
         <div class="step-actions" role="group" aria-label="Schritte verwalten">
-          <button id="btnAddStep"  onclick="addStep()">Weiteren Schritt</button>
-          <button id="btnSaveSteps" onclick="saveSteps()">Speichern</button>
+          <button id="btnAddStep">Weiteren Schritt</button>
+          <button id="btnSaveSteps">Speichern</button>
         </div>
 
         <ol id="stepList" aria-label="Gespeicherte Arbeitsschritte" aria-live="polite"></ol>
@@ -108,7 +107,6 @@
         <div class="session-actions" role="group" aria-label="Session steuern">
           <button
             id="btnSessionStart"
-            onclick="startSession()"
             aria-label="Session starten"
           >Stoppuhr starten</button>
         </div>
@@ -128,13 +126,21 @@
      <div class="kalkulation-group">
   <div class="kalkulation-field kalkulation-field--full">
     <label for="importiertTitel">Arbeitstitel</label>
-    <input
-      type="text"
-      id="importiertTitel"
-      placeholder="z.B. Rezeptur nachmachen"
-      autocomplete="off"
-      aria-label="Arbeitstitel"
-    >
+    <div class="job-title-row">
+      <input
+        type="text"
+        id="importiertTitel"
+        placeholder="z.B. Rezeptur nachmachen"
+        autocomplete="off"
+        aria-label="Arbeitstitel"
+      >
+      <select
+        id="kalTitelSelect"
+        aria-label="Gespeicherten Arbeitstitel auswählen"
+      >
+        <option value="">— Titel auswählen —</option>
+      </select>
+    </div>
   </div>
 
   <div class="kalkulation-field">
@@ -149,15 +155,23 @@
   </div>
 
   <div class="kalkulation-field">
-    <label for="zeitManuell">Zeit manuell eingeben (Richtwert)</label>
-    <input
-      type="text"
-      inputmode="decimal"
-      id="zeitManuell"
-      placeholder="z.B. 02:30"
-      autocomplete="off"
-      aria-label="Zeit manuell eingeben im Format MM:SS"
-    >
+    <label>Zeit manuell eingeben (Richtwert)</label>
+    <div class="zeit-input-row">
+      <div class="zeit-col">
+        <input type="text" inputmode="numeric" id="zeitStd" maxlength="2" placeholder="00" autocomplete="off" aria-label="Stunden">
+        <span class="zeit-unit">Std</span>
+      </div>
+      <span class="zeit-sep">:</span>
+      <div class="zeit-col">
+        <input type="text" inputmode="numeric" id="zeitMin" maxlength="2" placeholder="00" autocomplete="off" aria-label="Minuten">
+        <span class="zeit-unit">Min</span>
+      </div>
+      <span class="zeit-sep">:</span>
+      <div class="zeit-col">
+        <input type="text" inputmode="numeric" id="zeitSek" maxlength="2" placeholder="00" autocomplete="off" aria-label="Sekunden">
+        <span class="zeit-unit">Sek</span>
+      </div>
+    </div>
   </div>
 
   <div class="kalkulation-field kalkulation-field--full">
@@ -222,6 +236,7 @@
         <option value="15">15 min</option>
         <option value="30">30 min</option>
         <option value="45">45 min</option>
+        <option value="60" selected>60 min</option>
       </select>
       <input
         type="text"
@@ -259,7 +274,7 @@
 
   <!-- Session Drawer -->
   <div id="sessionDrawer" class="session-drawer hidden" role="dialog" aria-modal="true" aria-label="Laufende Session">
-    <div class="session-drawer__backdrop" onclick="handleBackdropClick()"></div>
+    <div id="drawerBackdrop" class="session-drawer__backdrop"></div>
     <div class="session-drawer__panel">
       <div class="session-drawer__timer" aria-live="off" aria-atomic="true">
         <span id="drawerTime">00:00:00</span><span id="drawerMillis">.00</span>
@@ -269,12 +284,12 @@
         <span class="session-drawer__total-label">Total</span>
         <span id="drawerTotalTime" class="session-drawer__total-time"></span>
       </div>
-      <button id="btnExportKalkulation" class="session-drawer__export hidden" onclick="exportToKalkulation()">
+      <button id="btnExportKalkulation" class="session-drawer__export hidden">
         Zu Kalkulation exportieren
       </button>
       <div class="session-drawer__actions">
-        <button id="btnSessionNext" onclick="nextStep()" aria-label="Nächster Schritt">Nächster Schritt</button>
-        <button id="btnSessionCancel" onclick="cancelSession()" aria-label="Session abbrechen">Abbrechen / Stop</button>
+        <button id="btnSessionNext" aria-label="Nächster Schritt">Nächster Schritt</button>
+        <button id="btnSessionCancel" aria-label="Session abbrechen">Abbrechen / Stop</button>
       </div>
     </div>
   </div>

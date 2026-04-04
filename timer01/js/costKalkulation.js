@@ -6,6 +6,15 @@
 
 // ─── Hilfsfunktion: "MM:SS.cs" oder "HH:MM:SS.cs" → Minuten ─────────────────
 
+// Liest die drei Zeit-Inputs (Sek / Min / Std) und gibt Minuten zurück
+function getManualTimeMinutes() {
+  const sek = parseInt(document.getElementById('zeitSek')?.value || '0', 10) || 0;
+  const min = parseInt(document.getElementById('zeitMin')?.value || '0', 10) || 0;
+  const std = parseInt(document.getElementById('zeitStd')?.value || '0', 10) || 0;
+  const totalSeconds = std * 3600 + min * 60 + sek;
+  return totalSeconds > 0 ? totalSeconds / 60 : NaN;
+}
+
 function parseDurationToMinutes(str) {
   if (!str || !str.trim()) return NaN;
   const parts = str.trim().split(':');
@@ -38,7 +47,7 @@ function recalcUmsatz() {
   const produktionMan = document.getElementById('produktionManual');
   const umsatzField   = document.getElementById('umsatzStunde');
 
-  if (!bruttoInput || !importZeit || !produktionSel || !umsatzField) return;
+  if (!bruttoInput || !produktionSel || !umsatzField) return;
 
   const brutto = parseInputValue(bruttoInput.value);
   if (!Number.isFinite(brutto) || brutto <= 0) {
@@ -46,7 +55,11 @@ function recalcUmsatz() {
     return;
   }
 
-  const measuredMinutes = parseDurationToMinutes(importZeit.value);
+  // Gesessene Zeit hat Vorrang; manuell eingegebene Zeit als Fallback
+  let measuredMinutes = importZeit ? parseDurationToMinutes(importZeit.value) : NaN;
+  if (!Number.isFinite(measuredMinutes) || measuredMinutes <= 0) {
+    measuredMinutes = getManualTimeMinutes();
+  }
   if (!Number.isFinite(measuredMinutes) || measuredMinutes <= 0) {
     umsatzField.value = '';
     return;

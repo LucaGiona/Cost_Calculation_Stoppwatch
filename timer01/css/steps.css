@@ -119,12 +119,15 @@
 
 .field-error {
   font-size: 12px;
-  color: var(--color-delete);
+  color: var(--color-error);
+  font-weight: bold;
   letter-spacing: 0.5px;
 }
 
 .input--error {
-  border-color: var(--color-delete) !important;
+  border-color: var(--color-error) !important;
+  box-shadow: 4 5 0 2px var(--color-error);
+
 }
 
 .step-input-group {
@@ -149,7 +152,7 @@
 }
 
 .step-input-group input::placeholder       { color: #555577; }
-.step-input-group input.input--error::placeholder { color: var(--color-delete); }
+.step-input-group input.input--error::placeholder { color: var(--color-error); font-weight: bold; }
 .step-input-group input:focus        { border-color: var(--color-accent); }
 
 .step-actions {
@@ -435,6 +438,41 @@
 
 .mwst-row select {
   flex: 0 0 33%;
+}
+
+/* ─── Zeit-Input (Sek / Min / Std) ────────────────────────────────────────── */
+
+.zeit-input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.zeit-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.zeit-col input {
+  width: 64px;
+  text-align: right;
+  padding: 10px 10px;
+}
+
+.zeit-unit {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.zeit-sep {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-top: 10px;
 }
 
 .mwst-row input {
