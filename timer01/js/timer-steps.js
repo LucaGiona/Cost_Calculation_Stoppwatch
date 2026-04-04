@@ -2,10 +2,6 @@
 // Verbindet die Stoppuhr mit den definierten Arbeitsschritten.
 // Voraussetzung: stopwatch.js (mit getElapsed()), steps.js sind geladen.
 
-let sessionActive    = false;
-let currentStepIndex = 0;
-let stepStartTime    = 0;       // getElapsed()-Wert beim Start des aktuellen Schritts
-let stepDurations    = [];      // ms pro Schritt
 
 // ─── Hilfsfunktion: ms → "MM:SS.hh" ──────────────────────────────────────────
 
@@ -28,7 +24,7 @@ function pad2(n) {
 // ─── Session starten ──────────────────────────────────────────────────────────
 
 function startSession() {
-  if (typeof steps === 'undefined' || steps.length === 0) {
+  if (appState.steps.list.length === 0) {
     const input = document.getElementById('stepInput');
     if (input) {
       input.placeholder = 'Bitte zuerst Schritte eingeben!';
@@ -45,23 +41,23 @@ function startSession() {
   const stepInput = document.getElementById('stepInput');
   if (stepInput) {
     stepInput.classList.remove('input--error');
-    stepInput.placeholder = steps.length > 0
+    stepInput.placeholder = appState.steps.list.length > 0
       ? 'Weitere Schritte hinzufügen?'
       : 'z.B. Vorbereitung Utensilien';
   }
 
   // Timer explizit auf 0 zurücksetzen
-  running = false;
-  clearInterval(timerInterval);
-  elapsed = 0;
+  appState.timer.running = false;
+  clearInterval(appState.timer.timerInterval);
+  appState.timer.elapsed = 0;
   updateDisplay();
 
   start(); // neu starten
 
-  sessionActive    = true;
-  currentStepIndex = 0;
-  stepStartTime    = getElapsed();
-  stepDurations    = [];
+  appState.session.active           = true;
+  appState.session.currentStepIndex = 0;
+  appState.session.stepStartTime    = getElapsed();
+  appState.session.stepDurations    = [];
 
   openDrawer();
   renderDrawerSteps();
@@ -73,18 +69,18 @@ function startSession() {
 // ─── Nächster Schritt ─────────────────────────────────────────────────────────
 
 function nextStep() {
-  if (!sessionActive) return;
+  if (!appState.session.active) return;
 
-  const duration = getElapsed() - stepStartTime;
-  stepDurations[currentStepIndex] = duration;
+  const duration = getElapsed() - appState.session.stepStartTime;
+  appState.session.stepDurations[appState.session.currentStepIndex] = duration;
 
-  showDrawerStepTime(currentStepIndex, duration);
-  showStepTime(currentStepIndex, duration); // auch auf Hauptseite
+  showDrawerStepTime(appState.session.currentStepIndex, duration);
+  showStepTime(appState.session.currentStepIndex, duration); // auch auf Hauptseite
 
-  currentStepIndex++;
-  stepStartTime = getElapsed();
+  appState.session.currentStepIndex++;
+  appState.session.stepStartTime = getElapsed();
 
-  if (currentStepIndex >= steps.length) {
+  if (appState.session.currentStepIndex >= appState.steps.list.length) {
     endSession();
     return;
   }
@@ -98,9 +94,9 @@ function nextStep() {
 
 function endSession() {
   pause();
-  sessionActive = false;
+  appState.session.active = false;
 
-  const total = stepDurations.reduce((sum, d) => sum + d, 0);
+  const total = appState.session.stepDurations.reduce((sum, d) => sum + d, 0);
 
   // Total im Drawer anzeigen
   const totalEl     = document.getElementById('drawerTotal');
@@ -133,8 +129,8 @@ function endSession() {
 // ─── Session abbrechen ───────────────────────────────────────────────────────
 
 function cancelSession() {
-  if (!sessionActive) return;
-  sessionActive = false;
+  if (!appState.session.active) return;
+  appState.session.active = false;
   stop();
   closeDrawer();
   clearSessionUI();
@@ -144,7 +140,7 @@ function cancelSession() {
 // ─── Backdrop-Klick ───────────────────────────────────────────────────────────
 
 function handleBackdropClick() {
-  if (sessionActive) {
+  if (appState.session.active) {
     cancelSession();
   } else {
     closeDrawer();
@@ -182,9 +178,9 @@ function closeDrawer() {
 
 function resetForTitleChange() {
   // Stoppuhr direkt auf 0 setzen
-  running = false;
-  clearInterval(timerInterval);
-  elapsed = 0;
+  appState.timer.running = false;
+  clearInterval(appState.timer.timerInterval);
+  appState.timer.elapsed = 0;
 
   // Drawer-Anzeige sofort auf 00:00:00 setzen
   const dt = document.getElementById('drawerTime');
@@ -193,16 +189,32 @@ function resetForTitleChange() {
   if (dm) dm.textContent = '.00';
 
   // Session abbrechen falls aktiv, UI immer leeren
-  sessionActive = false;
+  appState.session.active = false;
   closeDrawer();
   clearSessionUI();
   updateSessionButtons();
 
-  // Kalkulation-Import leeren
+  // Kalkulation-Felder leeren
   const importZeit  = document.getElementById('importiertZeit');
   const importTitel = document.getElementById('importiertTitel');
-  if (importZeit)  importZeit.value  = '';
-  if (importTitel) importTitel.value = '';
+  const kalSelect   = document.getElementById('kalTitelSelect');
+  const preisNetto  = document.getElementById('preisNetto');
+  const preisBrutto = document.getElementById('preisBrutto');
+  const zeitSek     = document.getElementById('zeitSek');
+  const zeitMin     = document.getElementById('zeitMin');
+  const zeitStd     = document.getElementById('zeitStd');
+  const umsatzField = document.getElementById('umsatzStunde');
+  const produktionMan = document.getElementById('produktionManual');
+  if (importZeit)    importZeit.value    = '';
+  if (importTitel)   importTitel.value   = '';
+  if (kalSelect)     kalSelect.value     = '';
+  if (preisNetto)    preisNetto.value    = '';
+  if (preisBrutto)   preisBrutto.value   = '';
+  if (zeitSek)       zeitSek.value       = '';
+  if (zeitMin)       zeitMin.value       = '';
+  if (zeitStd)       zeitStd.value       = '';
+  if (umsatzField)   umsatzField.value   = '';
+  if (produktionMan) produktionMan.value = '';
 }
 
 function exportToKalkulation() {
@@ -227,7 +239,7 @@ function renderDrawerSteps() {
   if (!list) return;
   list.innerHTML = '';
 
-  steps.forEach((step, i) => {
+  appState.steps.list.forEach((step, i) => {
     const li = document.createElement('li');
 
     const numSpan = document.createElement('span');
@@ -252,9 +264,9 @@ function updateDrawerState() {
   listItems.forEach((li, i) => {
     li.classList.remove('step--active', 'step--done', 'step--pending');
 
-    if (i < currentStepIndex) {
+    if (i < appState.session.currentStepIndex) {
       li.classList.add('step--done');
-    } else if (i === currentStepIndex) {
+    } else if (i === appState.session.currentStepIndex) {
       li.classList.add('step--active');
       li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
@@ -283,7 +295,7 @@ function showDrawerStepTime(index, ms) {
 function updateDrawerNextButton() {
   const btnNext = document.getElementById('btnSessionNext');
   if (!btnNext) return;
-  btnNext.textContent = (currentStepIndex === steps.length - 1)
+  btnNext.textContent = (appState.session.currentStepIndex === appState.steps.list.length - 1)
     ? 'Fertig'
     : 'Nächster Schritt';
 }
@@ -296,9 +308,9 @@ function renderSessionState() {
   listItems.forEach((li, i) => {
     li.classList.remove('step--active', 'step--done', 'step--pending');
 
-    if (i < currentStepIndex) {
+    if (i < appState.session.currentStepIndex) {
       li.classList.add('step--done');
-    } else if (i === currentStepIndex) {
+    } else if (i === appState.session.currentStepIndex) {
       li.classList.add('step--active');
     } else {
       li.classList.add('step--pending');
@@ -356,7 +368,7 @@ function updateSessionButtons() {
   const btnStart = document.getElementById('btnSessionStart');
   if (!btnStart) return;
 
-  if (sessionActive) {
+  if (appState.session.active) {
     btnStart.classList.add('hidden');
   } else {
     btnStart.classList.remove('hidden');
@@ -389,8 +401,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const originalStop = window.stop;
   window.stop = function () {
     originalStop();
-    if (sessionActive) {
-      sessionActive = false;
+    if (appState.session.active) {
+      appState.session.active = false;
       closeDrawer();
       clearSessionUI();
       updateSessionButtons();

@@ -1,12 +1,7 @@
-let startTime = 0;
-let elapsed = 0;
-let timerInterval = null;
-let running = false;
-
-function getElapsed() { return elapsed; }
+function getElapsed() { return appState.timer.elapsed; }
 
 function updateDisplay() {
-  const total = elapsed;
+  const total = appState.timer.elapsed;
   const ms = Math.floor((total % 1000) / 10);
   const seconds = Math.floor(total / 1000) % 60;
   const minutes = Math.floor(total / 60000) % 60;
@@ -31,24 +26,24 @@ function pad(n) {
 }
 
 function start() {
-  if (running) return;
-  running = true;
-  startTime = Date.now() - elapsed;
-  timerInterval = setInterval(() => {
-    elapsed = Date.now() - startTime;
+  if (appState.timer.running) return;
+  appState.timer.running = true;
+  appState.timer.startTime = Date.now() - appState.timer.elapsed;
+  appState.timer.timerInterval = setInterval(() => {
+    appState.timer.elapsed = Date.now() - appState.timer.startTime;
     updateDisplay();
   }, 10);
 }
 
 function pause() {
-  if (!running) return;
-  running = false;
-  clearInterval(timerInterval);
+  if (!appState.timer.running) return;
+  appState.timer.running = false;
+  clearInterval(appState.timer.timerInterval);
 }
 
 function stop() {
-  running = false;
-  clearInterval(timerInterval);
-  elapsed = 0;
+  appState.timer.running = false;
+  clearInterval(appState.timer.timerInterval);
+  appState.timer.elapsed = 0;
   updateDisplay();
 }
