@@ -131,10 +131,12 @@
     <input
       type="text"
       id="importiertTitel"
-      placeholder="z.B. Rezeptur nachmachen"
+      list="kalTitelList"
+      placeholder="Auswählen oder frei eingeben"
       autocomplete="off"
-      aria-label="Arbeitstitel"
+      aria-label="Arbeitstitel auswählen oder eingeben"
     >
+    <datalist id="kalTitelList"></datalist>
   </div>
 
   <div class="kalkulation-field">
@@ -154,9 +156,9 @@
       type="text"
       inputmode="decimal"
       id="zeitManuell"
-      placeholder="z.B. 02:30"
+      placeholder="30 (Sek) · 1-30 (Min-Sek) · 1-30-00 (Std-Min-Sek)"
       autocomplete="off"
-      aria-label="Zeit manuell eingeben im Format MM:SS"
+      aria-label="Zeit manuell eingeben"
     >
   </div>
 

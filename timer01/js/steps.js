@@ -35,14 +35,25 @@ function updateStepInputState() {
 // ─── Titel-Dropdown ───────────────────────────────────────────────────────────
 
 function renderTitleOptions(titles, selectedValue = '') {
-  const select = document.getElementById('jobTitleSelect');
+  const select   = document.getElementById('jobTitleSelect');
+  const datalist = document.getElementById('kalTitelList');
+
   select.innerHTML = '<option value="">— Titel auswählen —</option>';
+  if (datalist) datalist.innerHTML = '';
+
   titles.forEach((t) => {
     const opt = document.createElement('option');
     opt.value = t;
     opt.textContent = t;
     select.appendChild(opt);
+
+    if (datalist) {
+      const dlOpt = document.createElement('option');
+      dlOpt.value = t;
+      datalist.appendChild(dlOpt);
+    }
   });
+
   select.value = selectedValue || '';
 }
 
@@ -56,6 +67,10 @@ function selectJobTitle() {
 
   input.value = title;
   currentSavedTitle = title;
+
+  // Arbeitstitel in Kalkulation übernehmen
+  const kalTitel = document.getElementById('importiertTitel');
+  if (kalTitel) kalTitel.value = title;
 
   // Schritte des gewählten Titels laden
   steps.length = 0;
