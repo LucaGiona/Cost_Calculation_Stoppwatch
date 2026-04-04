@@ -50,7 +50,12 @@ function startSession() {
       : 'z.B. Vorbereitung Utensilien';
   }
 
-  stop();  // Timer auf 0 zurücksetzen
+  // Timer explizit auf 0 zurücksetzen
+  running = false;
+  clearInterval(timerInterval);
+  elapsed = 0;
+  updateDisplay();
+
   start(); // neu starten
 
   sessionActive    = true;
@@ -108,6 +113,10 @@ function endSession() {
   // Total auch auf Hauptseite
   showTotal(total);
 
+  // Export-Button einblenden
+  const btnExport = document.getElementById('btnExportKalkulation');
+  if (btnExport) btnExport.classList.remove('hidden');
+
   // Drawer-Buttons: Weiter ausblenden, Abbrechen → Schließen
   const btnNext = document.getElementById('btnSessionNext');
   if (btnNext) btnNext.classList.add('hidden');
@@ -153,6 +162,9 @@ function openDrawer() {
   const totalEl = document.getElementById('drawerTotal');
   if (totalEl) totalEl.classList.add('hidden');
 
+  const btnExport = document.getElementById('btnExportKalkulation');
+  if (btnExport) btnExport.classList.add('hidden');
+
   const btnNext = document.getElementById('btnSessionNext');
   if (btnNext) btnNext.classList.remove('hidden');
 
@@ -166,6 +178,45 @@ function openDrawer() {
 function closeDrawer() {
   const drawer = document.getElementById('sessionDrawer');
   if (drawer) drawer.classList.add('hidden');
+}
+
+function resetForTitleChange() {
+  // Stoppuhr direkt auf 0 setzen
+  running = false;
+  clearInterval(timerInterval);
+  elapsed = 0;
+
+  // Drawer-Anzeige sofort auf 00:00:00 setzen
+  const dt = document.getElementById('drawerTime');
+  const dm = document.getElementById('drawerMillis');
+  if (dt) dt.textContent = '00:00:00';
+  if (dm) dm.textContent = '.00';
+
+  // Session abbrechen falls aktiv, UI immer leeren
+  sessionActive = false;
+  closeDrawer();
+  clearSessionUI();
+  updateSessionButtons();
+
+  // Kalkulation-Import leeren
+  const importZeit  = document.getElementById('importiertZeit');
+  const importTitel = document.getElementById('importiertTitel');
+  if (importZeit)  importZeit.value  = '';
+  if (importTitel) importTitel.value = '';
+}
+
+function exportToKalkulation() {
+  const totalTimeEl  = document.getElementById('drawerTotalTime');
+  const importZeit   = document.getElementById('importiertZeit');
+  const importTitel  = document.getElementById('importiertTitel');
+  const titelInput   = document.getElementById('jobTitleInput');
+
+  if (totalTimeEl && importZeit) {
+    importZeit.value  = totalTimeEl.textContent;
+    if (importTitel && titelInput) importTitel.value = titelInput.value.trim();
+    closeDrawer();
+    importZeit.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 // ─── Drawer: Schritte rendern ─────────────────────────────────────────────────

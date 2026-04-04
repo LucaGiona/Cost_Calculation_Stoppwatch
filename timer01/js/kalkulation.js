@@ -15,15 +15,21 @@ function parseInputValue(value) {
 }
 
 function setupKalkulation() {
-  const nettoInput = document.getElementById('preisNetto');
-  const bruttoInput = document.getElementById('preisBrutto');
-  const mwstSelect = document.getElementById('mwstSatz');
+  const nettoInput   = document.getElementById('preisNetto');
+  const bruttoInput  = document.getElementById('preisBrutto');
+  const mwstSelect   = document.getElementById('mwstSatz');
+  const mwstCustom   = document.getElementById('mwstCustom');
+  const mwstUnit     = document.getElementById('mwstCustomUnit');
 
   if (!nettoInput || !bruttoInput || !mwstSelect) return;
 
   let activeSource = null;
 
   function getTaxRate() {
+    if (mwstSelect.value === 'custom') {
+      const v = parseInputValue(mwstCustom.value);
+      return Number.isFinite(v) ? v / 100 : 0;
+    }
     return Number(mwstSelect.value) / 100;
   }
 
@@ -68,12 +74,18 @@ function setupKalkulation() {
   });
 
   mwstSelect.addEventListener('change', () => {
-    if (activeSource === 'brutto') {
-      updateFromBrutto();
-      return;
-    }
+    const isCustom = mwstSelect.value === 'custom';
+    mwstCustom.classList.toggle('hidden', !isCustom);
+    mwstUnit.classList.toggle('hidden', !isCustom);
+    if (isCustom) { mwstCustom.focus(); return; }
 
-    updateFromNetto();
+    if (activeSource === 'brutto') updateFromBrutto();
+    else updateFromNetto();
+  });
+
+  mwstCustom.addEventListener('input', () => {
+    if (activeSource === 'brutto') updateFromBrutto();
+    else updateFromNetto();
   });
 }
 

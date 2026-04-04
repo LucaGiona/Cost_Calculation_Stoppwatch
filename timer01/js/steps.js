@@ -52,6 +52,8 @@ function selectJobTitle() {
   const title  = select.value;
   if (!title) return;
 
+  resetForTitleChange();
+
   input.value = title;
   currentSavedTitle = title;
 
@@ -119,6 +121,7 @@ function saveTitle() {
 // ─── Neuer Titel ─────────────────────────────────────────────────────────────
 
 function newTitle() {
+  resetForTitleChange();
   document.getElementById('jobTitleInput').value = '';
   document.getElementById('jobTitleSelect').value = '';
   steps.length = 0;

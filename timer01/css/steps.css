@@ -404,6 +404,33 @@
   grid-column: span 2;
 }
 
+#importiertZeit,
+#importiertTitel {
+  color: var(--color-accent);
+  font-weight: 600;
+  cursor: default;
+}
+
+.mwst-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mwst-row select {
+  flex: 0 0 33%;
+}
+
+.mwst-row input {
+  flex: 1;
+}
+
+.mwst-unit {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
 /* Labels */
 
 .kalkulation-field label {

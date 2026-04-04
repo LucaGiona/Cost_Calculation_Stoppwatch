@@ -22,23 +22,6 @@
   </header>
   <main class="container">
 
-    <!-- Stoppuhr -->
-    <section class="timer-section" aria-label="Stoppuhr">
-      <div
-        id="display"
-        role="timer"
-        aria-live="off"
-        aria-atomic="true"
-        aria-label="Vergangene Zeit: 0 Stunden, 0 Minuten, 0 Sekunden"
-      >00:00:00<span id="millis">.00</span></div>
-
-      <div class="buttons" role="group" aria-label="Stoppuhr Steuerung">
-        <button id="btnStart" onclick="start()" aria-label="Stoppuhr starten">Start</button>
-        <button id="btnPause" onclick="pause()" aria-label="Stoppuhr pausieren">Pause</button>
-        <button id="btnStop"  onclick="stop()"  aria-label="Stoppuhr stoppen und zurücksetzen">Stopp</button>
-      </div>
-    </section>
-
     <!-- Arbeitsschritte -->
     <section class="steps-section" aria-labelledby="stepsHeading">
 
@@ -142,12 +125,48 @@
       <div class="accordion-body">
 
      <div class="kalkulation-group">
+  <div class="kalkulation-field">
+    <label for="importiertTitel">Arbeitstitel</label>
+    <input
+      type="text"
+      id="importiertTitel"
+      readonly
+      placeholder="—"
+      aria-label="Arbeitstitel der importierten Session"
+    >
+  </div>
+
+  <div class="kalkulation-field">
+    <label for="importiertZeit">Importierte Zeit</label>
+    <input
+      type="text"
+      id="importiertZeit"
+      readonly
+      placeholder="—"
+      aria-label="Aus Session importierte Gesamtzeit"
+    >
+  </div>
+
   <div class="kalkulation-field kalkulation-field--full">
     <label for="mwstSatz">MwSt.</label>
-    <select id="mwstSatz" name="mwstSatz" aria-label="Mehrwertsteuersatz auswählen">
-      <option value="7">7 %</option>
-      <option value="19" selected>19 %</option>
-    </select>
+    <div class="mwst-row">
+      <select id="mwstSatz" name="mwstSatz" aria-label="Mehrwertsteuersatz auswählen">
+        <option value="7">7 %</option>
+        <option value="19" selected>19 %</option>
+        <option value="custom">Manuell...</option>
+      </select>
+      <input
+        type="text"
+        inputmode="decimal"
+        id="mwstCustom"
+        class="hidden"
+        placeholder="z.B. 13"
+        autocomplete="off"
+        maxlength="6"
+        aria-label="Eigener Mehrwertsteuersatz in Prozent"
+      >
+      <span id="mwstCustomUnit" class="mwst-unit hidden">%</span>
+    </div>
   </div>
 
   <div class="kalkulation-field">
@@ -193,6 +212,9 @@
         <span class="session-drawer__total-label">Total</span>
         <span id="drawerTotalTime" class="session-drawer__total-time"></span>
       </div>
+      <button id="btnExportKalkulation" class="session-drawer__export hidden" onclick="exportToKalkulation()">
+        Zu Kalkulation exportieren
+      </button>
       <div class="session-drawer__actions">
         <button id="btnSessionNext" onclick="nextStep()" aria-label="Nächster Schritt">Nächster Schritt</button>
         <button id="btnSessionCancel" onclick="cancelSession()" aria-label="Session abbrechen">Abbrechen / Stop</button>
