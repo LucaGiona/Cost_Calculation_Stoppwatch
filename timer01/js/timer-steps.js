@@ -204,17 +204,21 @@ function resetForTitleChange() {
   const zeitMin     = document.getElementById('zeitMin');
   const zeitStd     = document.getElementById('zeitStd');
   const umsatzField = document.getElementById('umsatzStunde');
-  const produktionMan = document.getElementById('produktionManual');
-  if (importZeit)    importZeit.value    = '';
-  if (importTitel)   importTitel.value   = '';
-  if (kalSelect)     kalSelect.value     = '';
-  if (preisNetto)    preisNetto.value    = '';
-  if (preisBrutto)   preisBrutto.value   = '';
-  if (zeitSek)       zeitSek.value       = '';
-  if (zeitMin)       zeitMin.value       = '';
-  if (zeitStd)       zeitStd.value       = '';
-  if (umsatzField)   umsatzField.value   = '';
-  if (produktionMan) produktionMan.value = '';
+  const prodStd     = document.getElementById('prodStd');
+  const prodMin     = document.getElementById('prodMin');
+  const prodSek     = document.getElementById('prodSek');
+  if (importZeit)  importZeit.value  = '';
+  if (importTitel) importTitel.value = '';
+  if (kalSelect)   kalSelect.value   = '';
+  if (preisNetto)  preisNetto.value  = '';
+  if (preisBrutto) preisBrutto.value = '';
+  if (zeitSek)     zeitSek.value     = '';
+  if (zeitMin)     zeitMin.value     = '';
+  if (zeitStd)     zeitStd.value     = '';
+  if (umsatzField) umsatzField.value = '';
+  if (prodStd)     prodStd.value     = '';
+  if (prodMin)     prodMin.value     = '';
+  if (prodSek)     prodSek.value     = '';
 }
 
 function exportToKalkulation() {

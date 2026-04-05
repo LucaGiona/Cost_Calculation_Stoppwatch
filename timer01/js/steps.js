@@ -54,7 +54,18 @@ function renderTitleOptions(titles, selectedValue = '') {
 function selectKalTitel() {
   const select = document.getElementById('kalTitelSelect');
   const input  = document.getElementById('importiertTitel');
-  if (select && input && select.value) input.value = select.value;
+  if (!select || !select.value) return;
+  input.value = select.value;
+
+  [
+    'importiertZeit',
+    'preisNetto', 'preisBrutto', 'umsatzStunde',
+    'zeitStd', 'zeitMin', 'zeitSek',
+    'prodStd', 'prodMin', 'prodSek'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
 }
 
 function selectJobTitle() {

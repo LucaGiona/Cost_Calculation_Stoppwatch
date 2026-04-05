@@ -230,7 +230,7 @@
 
   <div class="kalkulation-field kalkulation-field--full">
     <label>Produktionskosten Brutto auf Zeit</label>
-    <div class="mwst-row">
+    <div class="mwst-row mwst-row--prod">
       <select id="produktionZeit" aria-label="Produktionszeitraum auswählen">
         <option value="manual">Manuell</option>
         <option value="15">15 min</option>
@@ -238,16 +238,22 @@
         <option value="45">45 min</option>
         <option value="60" selected>60 min</option>
       </select>
-      <input
-        type="text"
-        inputmode="decimal"
-        id="produktionManual"
-        placeholder="Minuten"
-        autocomplete="off"
-        maxlength="6"
-        aria-label="Manuelle Produktionszeit in Minuten"
-      >
-      <span class="mwst-unit">min</span>
+      <div id="prodManualRow" class="zeit-input-row hidden">
+        <div class="zeit-col">
+          <input type="text" inputmode="numeric" id="prodStd" maxlength="2" placeholder="00" autocomplete="off" aria-label="Stunden">
+          <span class="zeit-unit">Std</span>
+        </div>
+        <span class="zeit-sep">:</span>
+        <div class="zeit-col">
+          <input type="text" inputmode="numeric" id="prodMin" maxlength="2" placeholder="00" autocomplete="off" aria-label="Minuten">
+          <span class="zeit-unit">Min</span>
+        </div>
+        <span class="zeit-sep">:</span>
+        <div class="zeit-col">
+          <input type="text" inputmode="numeric" id="prodSek" maxlength="2" placeholder="00" autocomplete="off" aria-label="Sekunden">
+          <span class="zeit-unit">Sek</span>
+        </div>
+      </div>
     </div>
   </div>
 

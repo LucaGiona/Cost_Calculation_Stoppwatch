@@ -75,6 +75,15 @@ function setupZeitInputs() {
   bindField(std, min, null);
   bindField(min, sek, std);
   bindField(sek, null, min);
+
+  const prodStd = document.getElementById('prodStd');
+  const prodMin = document.getElementById('prodMin');
+  const prodSek = document.getElementById('prodSek');
+  if (prodStd && prodMin && prodSek) {
+    bindField(prodStd, prodMin, null);
+    bindField(prodMin, prodSek, prodStd);
+    bindField(prodSek, null,    prodMin);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', setupEventHandlers);

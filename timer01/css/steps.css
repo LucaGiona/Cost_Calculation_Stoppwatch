@@ -386,7 +386,7 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 
@@ -438,6 +438,18 @@
 
 .mwst-row select {
   flex: 0 0 33%;
+}
+
+.mwst-row--prod {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .mwst-row--prod #prodManualRow {
+    width: 100%;
+  }
 }
 
 /* ─── Zeit-Input (Sek / Min / Std) ────────────────────────────────────────── */

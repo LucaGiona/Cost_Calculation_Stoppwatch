@@ -6,7 +6,16 @@
 
 // ─── Hilfsfunktion: "MM:SS.cs" oder "HH:MM:SS.cs" → Minuten ─────────────────
 
-// Liest die drei Zeit-Inputs (Sek / Min / Std) und gibt Minuten zurück
+// Liest die drei Prod-Inputs (Std / Min / Sek) und gibt Minuten zurück
+function getProdMinutes() {
+  const std = parseInt(document.getElementById('prodStd')?.value || '0', 10) || 0;
+  const min = parseInt(document.getElementById('prodMin')?.value || '0', 10) || 0;
+  const sek = parseInt(document.getElementById('prodSek')?.value || '0', 10) || 0;
+  const totalSeconds = std * 3600 + min * 60 + sek;
+  return totalSeconds > 0 ? totalSeconds / 60 : NaN;
+}
+
+// Liest die drei Zeit-Inputs (Std / Min / Sek) und gibt Minuten zurück
 function getManualTimeMinutes() {
   const sek = parseInt(document.getElementById('zeitSek')?.value || '0', 10) || 0;
   const min = parseInt(document.getElementById('zeitMin')?.value || '0', 10) || 0;
@@ -66,7 +75,7 @@ function recalcUmsatz() {
   }
 
   const selectedMinutes = produktionSel.value === 'manual'
-    ? parseInputValue(produktionMan.value)
+    ? getProdMinutes()
     : Number(produktionSel.value);
 
   if (!Number.isFinite(selectedMinutes) || selectedMinutes <= 0) {
@@ -82,17 +91,15 @@ function recalcUmsatz() {
 
 function setupCostKalkulation() {
   const produktionSel = document.getElementById('produktionZeit');
-  const produktionMan = document.getElementById('produktionManual');
   const bruttoInput   = document.getElementById('preisBrutto');
 
-  if (!produktionSel || !produktionMan || !bruttoInput) return;
+  if (!produktionSel || !bruttoInput) return;
 
   function toggleManualInput() {
     const isManual = produktionSel.value === 'manual';
-    produktionMan.classList.toggle('hidden', !isManual);
-    const unitSpan = produktionMan.nextElementSibling;
-    if (unitSpan) unitSpan.classList.toggle('hidden', !isManual);
-    if (isManual) produktionMan.focus();
+    const row = document.getElementById('prodManualRow');
+    if (row) row.classList.toggle('hidden', !isManual);
+    if (isManual) document.getElementById('prodStd')?.focus();
   }
 
   toggleManualInput(); // Initialzustand setzen
@@ -102,8 +109,19 @@ function setupCostKalkulation() {
     recalcUmsatz();
   });
 
-  produktionMan.addEventListener('input', recalcUmsatz);
-  bruttoInput.addEventListener('input',   recalcUmsatz);
+  ['prodStd', 'prodMin', 'prodSek'].forEach(id => {
+    document.getElementById(id)?.addEventListener('input', recalcUmsatz);
+  });
+  bruttoInput.addEventListener('input', recalcUmsatz);
+
+  // preisNetto-Eingabe setzt preisBrutto programmatisch (kein input-Event) →
+  // recalcUmsatz direkt auf netto + mwst hören
+  const nettoInput = document.getElementById('preisNetto');
+  const mwstSelect = document.getElementById('mwstSatz');
+  const mwstCustom = document.getElementById('mwstCustom');
+  if (nettoInput) nettoInput.addEventListener('input',  recalcUmsatz);
+  if (mwstSelect) mwstSelect.addEventListener('change', recalcUmsatz);
+  if (mwstCustom) mwstCustom.addEventListener('input',  recalcUmsatz);
 }
 
 document.addEventListener('DOMContentLoaded', setupCostKalkulation);
