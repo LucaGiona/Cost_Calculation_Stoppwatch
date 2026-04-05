@@ -28,19 +28,11 @@ function updateStepInputState() {
 // ─── Titel-Dropdown ───────────────────────────────────────────────────────────
 
 function renderTitleOptions(titles, selectedValue = '') {
-<<<<<<< HEAD
-  const select   = document.getElementById('jobTitleSelect');
-  const datalist = document.getElementById('kalTitelList');
-
-  select.innerHTML = '<option value="">— Titel auswählen —</option>';
-  if (datalist) datalist.innerHTML = '';
-=======
   const select    = document.getElementById('jobTitleSelect');
   const kalSelect = document.getElementById('kalTitelSelect');
 
   select.innerHTML = '<option value="">— Titel auswählen —</option>';
   if (kalSelect) kalSelect.innerHTML = '<option value="">— Titel auswählen —</option>';
->>>>>>> localStorageMigration
 
   titles.forEach((t) => {
     const opt = document.createElement('option');
@@ -48,18 +40,11 @@ function renderTitleOptions(titles, selectedValue = '') {
     opt.textContent = t;
     select.appendChild(opt);
 
-<<<<<<< HEAD
-    if (datalist) {
-      const dlOpt = document.createElement('option');
-      dlOpt.value = t;
-      datalist.appendChild(dlOpt);
-=======
     if (kalSelect) {
       const kalOpt = document.createElement('option');
       kalOpt.value = t;
       kalOpt.textContent = t;
       kalSelect.appendChild(kalOpt);
->>>>>>> localStorageMigration
     }
   });
 
@@ -82,10 +67,6 @@ function selectJobTitle() {
 
   input.value = title;
   appState.steps.currentSavedTitle = title;
-
-  // Arbeitstitel in Kalkulation übernehmen
-  const kalTitel = document.getElementById('importiertTitel');
-  if (kalTitel) kalTitel.value = title;
 
   // Schritte des gewählten Titels laden
   appState.steps.list.length = 0;

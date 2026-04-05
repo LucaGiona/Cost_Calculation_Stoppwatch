@@ -4,11 +4,7 @@
 //   - dem Preis Brutto
 //   - dem gewählten Produktionszeitraum (15 / 30 / 45 min oder Manuell)
 
-// ─── Hilfsfunktion: Zeiteingabe → Minuten ────────────────────────────────────
-// Akzeptiert:  "30"        → 30 Sekunden
-//              "1-30"      → 1 Min 30 Sek  (auch "1:30")
-//              "1-30-00"   → 1 Std 30 Min  (auch "1:30:00")
-// Auch aus Session: "MM:SS.cs" / "HH:MM:SS.cs"
+// ─── Hilfsfunktion: "MM:SS.cs" oder "HH:MM:SS.cs" → Minuten ─────────────────
 
 // Liest die drei Zeit-Inputs (Sek / Min / Std) und gibt Minuten zurück
 function getManualTimeMinutes() {
@@ -21,34 +17,25 @@ function getManualTimeMinutes() {
 
 function parseDurationToMinutes(str) {
   if (!str || !str.trim()) return NaN;
-
-  // Trennzeichen normalisieren: - und : beide erlaubt
-  const parts = str.trim().replace(/-/g, ':').split(':');
-
-  if (parts.length === 1) {
-    // Nur eine Zahl → Sekunden
-    const sec = parseFloat(parts[0]);
-    return Number.isFinite(sec) && sec >= 0 ? sec / 60 : NaN;
-  }
-
-  if (parts.length === 2) {
-    // MM:SS(.cs)
-    const min = parseInt(parts[0], 10);
-    const sec = parseFloat(parts[1]);
-    if (!Number.isFinite(min) || !Number.isFinite(sec)) return NaN;
-    return min + sec / 60;
-  }
+  const parts = str.trim().split(':');
+  let totalSeconds = 0;
 
   if (parts.length === 3) {
-    // HH:MM:SS(.cs)
-    const hr  = parseInt(parts[0], 10);
-    const min = parseInt(parts[1], 10);
-    const sec = parseFloat(parts[2]);
-    if (!Number.isFinite(hr) || !Number.isFinite(min) || !Number.isFinite(sec)) return NaN;
-    return hr * 60 + min + sec / 60;
+    // HH:MM:SS.cs
+    totalSeconds =
+      parseInt(parts[0], 10) * 3600 +
+      parseInt(parts[1], 10) * 60 +
+      parseFloat(parts[2]);
+  } else if (parts.length === 2) {
+    // MM:SS.cs
+    totalSeconds =
+      parseInt(parts[0], 10) * 60 +
+      parseFloat(parts[1]);
+  } else {
+    return NaN;
   }
 
-  return NaN;
+  return totalSeconds / 60;
 }
 
 // ─── Umsatz neu berechnen ─────────────────────────────────────────────────────
@@ -68,17 +55,11 @@ function recalcUmsatz() {
     return;
   }
 
-<<<<<<< HEAD
-  const zeitManuell = document.getElementById('zeitManuell');
-  const zeitStr = (importZeit.value.trim() || (zeitManuell && zeitManuell.value.trim()));
-  const measuredMinutes = parseDurationToMinutes(zeitStr);
-=======
   // Gesessene Zeit hat Vorrang; manuell eingegebene Zeit als Fallback
   let measuredMinutes = importZeit ? parseDurationToMinutes(importZeit.value) : NaN;
   if (!Number.isFinite(measuredMinutes) || measuredMinutes <= 0) {
     measuredMinutes = getManualTimeMinutes();
   }
->>>>>>> localStorageMigration
   if (!Number.isFinite(measuredMinutes) || measuredMinutes <= 0) {
     umsatzField.value = '';
     return;
@@ -123,20 +104,6 @@ function setupCostKalkulation() {
 
   produktionMan.addEventListener('input', recalcUmsatz);
   bruttoInput.addEventListener('input',   recalcUmsatz);
-
-  const zeitManuell = document.getElementById('zeitManuell');
-  if (zeitManuell) {
-    zeitManuell.addEventListener('input', () => {
-      const val = zeitManuell.value.trim();
-      if (val === '') {
-        zeitManuell.classList.remove('input--error');
-      } else {
-        const minutes = parseDurationToMinutes(val);
-        zeitManuell.classList.toggle('input--error', !Number.isFinite(minutes) || minutes <= 0);
-      }
-      recalcUmsatz();
-    });
-  }
 }
 
 document.addEventListener('DOMContentLoaded', setupCostKalkulation);
