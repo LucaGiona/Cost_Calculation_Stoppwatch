@@ -14,8 +14,7 @@
   margin-right: 12px;
   transition: transform 0.25s ease;
   vertical-align: middle;
-  position: relative;
-  top: -2px;
+  pointer-events: none;
 }
 
 .section-heading[aria-expanded="true"]::before {

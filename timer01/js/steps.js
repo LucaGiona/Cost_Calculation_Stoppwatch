@@ -1,17 +1,7 @@
 // ─── Hilfsfunktionen localStorage ────────────────────────────────────────────
 
-function getSavedTitles() {
-  return getDataStore().arbeitstitel;
-}
-
 function loadStepsForTitle(title) {
   return getDataStore().schritte[title] || [];
-}
-
-function saveStepsForTitle(title) {
-  const store = getDataStore();
-  store.schritte[title] = [...appState.steps.list];
-  saveDataStore(store);
 }
 
 // ─── Schritt-Input aktivieren / deaktivieren ──────────────────────────────────

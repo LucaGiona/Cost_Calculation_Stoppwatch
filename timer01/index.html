@@ -84,8 +84,8 @@
           </div>
         </div>
 
-      <label for="stepInput" class="section-heading">Schritte definieren <br> & Stoppuhr</label>
-      <div class="accordion-body">
+      <label class="section-heading" tabindex="0" role="button" aria-expanded="false" aria-controls="stepsAccordion">Schritte definieren &amp; Stoppuhr</label>
+      <div id="stepsAccordion" class="accordion-body">
 
         <div class="step-input-group">
           <input
@@ -93,6 +93,7 @@
             id="stepInput"
             name="stepInput"
             placeholder="z.B. Vorbereitung Utensilien"
+            aria-label="Neuen Schritt beschreiben"
             aria-required="false"
             autocomplete="off"
             maxlength="100"
@@ -123,8 +124,8 @@
     <!-- Kalkulation -->
     <section class="steps-section" aria-label="Kalkulation">
 
-      <label class="section-heading">Kalkulation</label>
-      <div class="accordion-body">
+      <label class="section-heading" tabindex="0" role="button" aria-expanded="false" aria-controls="kalkulationAccordion">Kalkulation</label>
+      <div id="kalkulationAccordion" class="accordion-body">
 
      <div class="kalkulation-group">
   <div class="kalkulation-field kalkulation-field--full">

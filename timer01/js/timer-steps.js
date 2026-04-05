@@ -41,9 +41,7 @@ function startSession() {
   const stepInput = document.getElementById('stepInput');
   if (stepInput) {
     stepInput.classList.remove('input--error');
-    stepInput.placeholder = appState.steps.list.length > 0
-      ? 'Weitere Schritte hinzufügen?'
-      : 'z.B. Vorbereitung Utensilien';
+    stepInput.placeholder = 'Weitere Schritte hinzufügen?';
   }
 
   // Timer explizit auf 0 zurücksetzen
@@ -401,15 +399,4 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(stepList, { childList: true });
   }
 
-  // Wenn Stoppuhr-Stop gedrückt wird, Session ebenfalls abbrechen
-  const originalStop = window.stop;
-  window.stop = function () {
-    originalStop();
-    if (appState.session.active) {
-      appState.session.active = false;
-      closeDrawer();
-      clearSessionUI();
-      updateSessionButtons();
-    }
-  };
 });

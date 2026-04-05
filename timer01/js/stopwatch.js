@@ -10,11 +10,6 @@ function updateDisplay() {
   const timeStr   = pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
   const millisStr = '.' + pad(ms);
 
-  const display = document.getElementById('display');
-  const millis  = document.getElementById('millis');
-  if (display) display.childNodes[0].textContent = timeStr;
-  if (millis)  millis.textContent = millisStr;
-
   const drawerTime   = document.getElementById('drawerTime');
   const drawerMillis = document.getElementById('drawerMillis');
   if (drawerTime)   drawerTime.textContent   = timeStr;

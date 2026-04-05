@@ -5,9 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     heading.setAttribute('aria-expanded', 'false');
 
-    heading.addEventListener('click', () => {
+    function toggle() {
       const isExpanded = heading.getAttribute('aria-expanded') === 'true';
       heading.setAttribute('aria-expanded', String(!isExpanded));
+    }
+
+    heading.addEventListener('click', toggle);
+    heading.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
     });
   });
 });

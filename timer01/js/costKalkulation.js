@@ -53,7 +53,6 @@ function recalcUmsatz() {
   const bruttoInput   = document.getElementById('preisBrutto');
   const importZeit    = document.getElementById('importiertZeit');
   const produktionSel = document.getElementById('produktionZeit');
-  const produktionMan = document.getElementById('produktionManual');
   const umsatzField   = document.getElementById('umsatzStunde');
 
   if (!bruttoInput || !produktionSel || !umsatzField) return;
@@ -109,9 +108,6 @@ function setupCostKalkulation() {
     recalcUmsatz();
   });
 
-  ['prodStd', 'prodMin', 'prodSek'].forEach(id => {
-    document.getElementById(id)?.addEventListener('input', recalcUmsatz);
-  });
   bruttoInput.addEventListener('input', recalcUmsatz);
 
   // preisNetto-Eingabe setzt preisBrutto programmatisch (kein input-Event) →
