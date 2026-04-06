@@ -11,11 +11,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     heading.addEventListener('click', toggle);
-    heading.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
-    });
   });
 });

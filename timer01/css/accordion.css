@@ -36,6 +36,12 @@
   transform: rotate(0deg);
 }
 
+.section-heading:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
 .accordion-body {
   overflow: hidden;
   max-height: 0;
