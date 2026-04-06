@@ -42,14 +42,14 @@ body {
 }
 
 .app-title {
-  font-size: clamp(2.4rem, 2.5vw, 2rem);
+  font-size: clamp(2rem, 2.5vw, 2.4rem);
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
 }
 
 .app-subtitle {
-  font-size: clamp(1.25rem, 1.5vw, 1rem);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   color: var(--text-muted);
   margin-top: 6px;
   margin-bottom: 16px;
