@@ -21,9 +21,12 @@
   <script src="js/ui.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <h1>Timer mit Kalkulation</h1>
-  </header>
+<header class="app-header">
+  <h1 class="app-title">Zeitbasierte Produktionskalkulation</h1>
+  <p class="app-subtitle">
+    Workflow-Tracking und Kostenberechnung auf Basis real gemessener Zeit
+  </p>
+</header>
   <main class="container">
 
     <!-- Arbeitsschritte -->
@@ -81,15 +84,12 @@
           </div>
         </div>
 
-      <button
-        type="button"
-        class="section-heading"
-        aria-expanded="false"
-        aria-controls="stepsAccordion"
-      >
+
+      <button type="button" class="section-heading" aria-expanded="false" aria-controls="stepsAccordion">
+        <span class="section-icon">▼</span>
         <span class="section-title">Schritte definieren &amp; Stoppuhr</span>
-        <span class="section-icon" aria-hidden="true">▼</span>
       </button>
+
       <div id="stepsAccordion" class="accordion-body">
 
         <div class="step-input-group">
@@ -98,6 +98,7 @@
             id="stepInput"
             name="stepInput"
             placeholder="z.B. Vorbereitung Utensilien"
+            aria-label="Neuen Schritt beschreiben"
             aria-required="false"
             autocomplete="off"
             maxlength="100"
@@ -128,14 +129,9 @@
     <!-- Kalkulation -->
     <section class="steps-section" aria-label="Kalkulation">
 
-      <button
-        type="button"
-        class="section-heading"
-        aria-expanded="false"
-        aria-controls="kalkulationAccordion"
-      >
+      <button type="button" class="section-heading" aria-expanded="false" aria-controls="kalkulationAccordion">
+        <span class="section-icon">▼</span>
         <span class="section-title">Kalkulation</span>
-        <span class="section-icon" aria-hidden="true">▼</span>
       </button>
       <div id="kalkulationAccordion" class="accordion-body">
 

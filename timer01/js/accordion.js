@@ -1,14 +1,21 @@
-document.querySelectorAll('.section-heading').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.section-heading').forEach((heading) => {
+    const body = heading.nextElementSibling;
+    if (!body || !body.classList.contains('accordion-body')) return;
 
-    btn.setAttribute('aria-expanded', !expanded);
+    heading.setAttribute('aria-expanded', 'false');
 
-    const targetId = btn.getAttribute('aria-controls');
-    const content = document.getElementById(targetId);
-
-    if (content) {
-      content.classList.toggle('open', !expanded);
+    function toggle() {
+      const isExpanded = heading.getAttribute('aria-expanded') === 'true';
+      heading.setAttribute('aria-expanded', String(!isExpanded));
     }
+
+    heading.addEventListener('click', toggle);
+    heading.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
   });
 });
