@@ -19,14 +19,42 @@
   <script src="js/costKalkulation.js" defer></script>
   <script src="js/timer-steps.js" defer></script>
   <script src="js/ui.js" defer></script>
+  <script src="js/modal.js" defer></script>
 </head>
 <body>
 <header class="app-header">
+  <button class="btn-info" id="btnInfo" aria-label="Kurze Erklärung zur App">
+    <i data-lucide="info"></i>
+  </button>
   <h1 class="app-title">Zeitbasierte Produktionskalkulation</h1>
   <p class="app-subtitle">
     Workflow-Tracking und Kostenberechnung auf Basis real gemessener Zeit
   </p>
 </header>
+
+<!-- Info Modal -->
+<div id="infoModal" class="info-modal hidden" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+  <div class="info-modal__backdrop" id="infoModalBackdrop"></div>
+  <div class="info-modal__panel">
+    <button class="info-modal__close" id="btnInfoClose" aria-label="Modal schließen">
+      <i data-lucide="x"></i>
+    </button>
+    <h2 id="infoModalTitle" class="info-modal__title">Kurze Erklärung</h2>
+      <div class="info-modal__body">
+        <p><strong>Arbeitszeit messen. Preise fundiert kalkulieren.</strong></p>
+
+        <p>Diese App verbindet präzise Zeiterfassung mit einer direkten Kalkulation, damit du deine Arbeit realistisch bewerten kannst – egal ob für Rezepturen, Dienstleistungen oder wiederkehrende Prozesse.</p>
+
+        <p>Lege einen Titel an, definiere deine Arbeitsschritte und stoppe die Zeit für jeden einzelnen Schritt. Alle Zeiten werden automatisch zusammengeführt und können mit einem Klick in die Kalkulation übernommen werden.</p>
+
+        <p>In der Kalkulation bestimmst du deinen Zielpreis und die geplante Produktionszeit. Die App berechnet daraus deinen Brutto-Umsatz und gibt dir eine klare Orientierung für deine Preisstruktur.</p>
+
+        <p>Für schnelle Einschätzungen kannst du die Kalkulation auch unabhängig von der Zeiterfassung nutzen und Zeiten manuell eingeben.</p>
+
+        <p><strong>Für bessere Entscheidungen bei Zeit, Preis und Wirtschaftlichkeit.</strong></p>
+      </div>
+  </div>
+</div>
   <main class="container">
 
     <!-- Arbeitsschritte -->
