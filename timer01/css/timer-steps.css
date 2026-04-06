@@ -230,11 +230,11 @@
 }
 
 .session-drawer__steps li.step--pending {
-  color: #4a4a6a;
+  color: #7a7a9a;
 }
 
 .session-drawer__steps li.step--pending .step-num {
-  color: #3a3a5a;
+  color: #6a6a8a;
 }
 
 .session-drawer__steps li .step-num {

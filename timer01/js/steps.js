@@ -103,6 +103,14 @@ function saveTitle() {
   const store = getDataStore();
 
   if (appState.steps.currentSavedTitle && appState.steps.currentSavedTitle !== title) {
+    // Kollision prüfen: neuer Titel existiert bereits
+    if (store.arbeitstitel.includes(title)) {
+      titleInput.classList.add('input--error');
+      document.getElementById('jobTitleError').textContent = `„${title}" existiert bereits.`;
+      document.getElementById('jobTitleError').classList.remove('hidden');
+      titleInput.focus();
+      return;
+    }
     // Umbenennen: Steps-Key migrieren
     store.schritte[title] = store.schritte[appState.steps.currentSavedTitle] || [];
     delete store.schritte[appState.steps.currentSavedTitle];
@@ -220,6 +228,14 @@ function saveSteps() {
 
   // Umbenennen: alten Titel entfernen wenn der Name geändert wurde
   if (appState.steps.currentSavedTitle && appState.steps.currentSavedTitle !== title) {
+    // Kollision prüfen: neuer Titel existiert bereits
+    if (store.arbeitstitel.includes(title)) {
+      titleInput.classList.add('input--error');
+      titleError.textContent = `„${title}" existiert bereits.`;
+      titleError.classList.remove('hidden');
+      titleInput.focus();
+      return;
+    }
     delete store.schritte[appState.steps.currentSavedTitle];
     store.arbeitstitel = store.arbeitstitel.filter(t => t !== appState.steps.currentSavedTitle);
     if (store.aktiverTitel === appState.steps.currentSavedTitle) store.aktiverTitel = null;
@@ -247,7 +263,7 @@ function makeIconBtn(iconName, className, ariaLabel, onClick) {
   btn.className = `step-btn ${className}`;
   btn.setAttribute('aria-label', ariaLabel);
   btn.innerHTML = `<i data-lucide="${iconName}"></i>`;
-  btn.onclick = onClick;
+  btn.addEventListener('click', onClick);
   return btn;
 }
 
