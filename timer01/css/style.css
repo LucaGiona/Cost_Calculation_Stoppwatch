@@ -63,26 +63,6 @@ body {
   width: 100%;
 }
 
-#display {
-  font-size: clamp(36px, 10vw, 80px);
-  color: var(--text);
-  letter-spacing: 4px;
-  margin-bottom: 40px;
-  text-shadow: 0 0 20px rgba(100, 200, 255, 0.4);
-  white-space: nowrap;
-}
-
-#millis {
-  font-size: clamp(24px, 6vw, 50px);
-  color: var(--text-muted);
-}
-
-.buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 
 button {
   width: clamp(90px, 25vw, 120px);
@@ -101,20 +81,3 @@ button:active {
   transform: scale(0.95);
 }
 
-#btnStart  { background: var(--color-start);  color: #fff; }
-#btnPause  { background: var(--color-pause);  color: #333; }
-#btnStop   { background: var(--color-stop);   color: #fff; }
-
-#btnStart:hover  { opacity: 0.85; }
-#btnPause:hover  { opacity: 0.85; }
-#btnStop:hover   { opacity: 0.85; }
-
-@media (max-width: 360px) {
-  #display {
-    letter-spacing: 2px;
-  }
-
-  .buttons {
-    gap: 10px;
-  }
-}

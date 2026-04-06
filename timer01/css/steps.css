@@ -126,7 +126,7 @@
 
 .input--error {
   border-color: var(--color-error) !important;
-  box-shadow: 4 5 0 2px var(--color-error);
+  box-shadow: 0 0 0 2px var(--color-error);
 
 }
 

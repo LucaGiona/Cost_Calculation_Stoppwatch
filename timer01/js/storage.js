@@ -4,8 +4,13 @@ const STORE_KEY = 'dataStore';
 
 function getDataStore() {
   const raw = localStorage.getItem(STORE_KEY);
-  if (!raw) return { arbeitstitel: [], aktiverTitel: null, schritte: {}, settings: { taxRate: 19, currency: 'EUR' } };
-  return JSON.parse(raw);
+  const fallback = { arbeitstitel: [], aktiverTitel: null, schritte: {}, settings: { taxRate: 19, currency: 'EUR' } };
+  if (!raw) return fallback;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return fallback;
+  }
 }
 
 function saveDataStore(store) {

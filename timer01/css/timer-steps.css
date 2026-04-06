@@ -38,11 +38,11 @@
 
 .step-time {
   margin-left: auto;
-  font-size: 12px;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   font-family: 'IBM Plex Mono', monospace;
-  color: var(--color-save);
-  background: rgba(66, 18, 222, 0.15);
-  border: 1px solid var(--color-save);
+  color: #a0b8ff;
+  background: rgba(100, 128, 224, 0.15);
+  border: 1px solid rgba(160, 184, 255, 0.5);
   border-radius: 5px;
   padding: 2px 8px;
   white-space: nowrap;
@@ -202,7 +202,7 @@
 }
 
 .session-drawer__steps li.step--active {
-  border-color: var(--color-accent);
+  border-color: #a0b8ff;
   background: rgba(100, 128, 224, 0.22);
   font-weight: bold;
   color: #ffffff;
@@ -238,7 +238,7 @@
 }
 
 .session-drawer__steps li .step-num {
-  font-size: 11px;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
   color: var(--text-muted);
   flex-shrink: 0;
   min-width: 20px;
@@ -250,11 +250,11 @@
 
 .session-drawer__steps li .step-time {
   margin-left: auto;
-  font-size: 12px;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   font-family: 'IBM Plex Mono', monospace;
-  color: var(--color-save);
-  background: rgba(66, 18, 222, 0.15);
-  border: 1px solid var(--color-save);
+  color: #a0b8ff;
+  background: rgba(100, 128, 224, 0.15);
+  border: 1px solid rgba(160, 184, 255, 0.5);
   border-radius: 5px;
   padding: 2px 8px;
   white-space: nowrap;
@@ -278,7 +278,7 @@
 .session-drawer__total.hidden { display: none; }
 
 .session-drawer__total-label {
-  font-size: 12px;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -298,11 +298,11 @@
   margin-bottom: 12px;
   padding: 12px;
   background: transparent;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
+  color: #a0b8ff;
+  border: 1px solid rgba(160, 184, 255, 0.5);
   border-radius: 10px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: clamp(12px, 3vw, 14px);
+  font-size: clamp(0.875rem, 3vw, 1rem);
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s, opacity 0.2s;
