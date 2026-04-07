@@ -314,3 +314,9 @@ button:active {
   transform: scale(0.95);
 }
 
+@media (min-width: 735px) and (max-width: 950px) {
+  .app-header {
+    padding-top: 70px;
+  }
+}
+
