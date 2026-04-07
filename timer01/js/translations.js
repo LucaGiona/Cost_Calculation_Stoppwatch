@@ -57,8 +57,28 @@ const translations = {
     btnSessionCancel:     "Abbrechen / Stop",
 
     // Placeholders
-    placeholderJobTitle:  "z.B. Rezeptur nachmachen",
-    placeholderStepInput: "z.B. Vorbereitung Utensilien",
+    placeholderJobTitle:    "z.B. Rezeptur nachmachen",
+    placeholderStepInput:   "z.B. Vorbereitung Utensilien",
+    placeholderStepMore:    "Noch mehr Schritte?",
+    placeholderStepAdding:  "Weitere Schritte hinzufügen?",
+    placeholderStepRequired: "Bitte zuerst Schritte eingeben!",
+
+    // Dynamische Meldungen (steps.js / timer-steps.js)
+    titleExists:         '„{title}" existiert bereits.',
+    confirmDeleteTitle:  'Arbeitstitel „{title}" und alle zugehörigen Schritte wirklich löschen?',
+    stepsSaved:          '„{title}": {count} {suffix} gespeichert.',
+    stepSingular:        "Schritt",
+    stepPlural:          "Schritte",
+
+    // aria-labels (dynamisch)
+    ariaEditStep:   "Schritt {index} bearbeiten",
+    ariaDeleteStep: "Schritt {index} löschen",
+    ariaSaveChange: "Änderung speichern",
+    ariaCancelEdit: "Bearbeitung abbrechen",
+
+    // Session Drawer (dynamisch)
+    btnDone:  "Fertig",
+    btnClose: "Schließen",
   },
 
   en: {
@@ -117,7 +137,27 @@ const translations = {
     btnSessionCancel:     "Cancel / Stop",
 
     // Placeholders
-    placeholderJobTitle:  "e.g. Recreate recipe",
-    placeholderStepInput: "e.g. Prepare utensils",
+    placeholderJobTitle:    "e.g. Recreate recipe",
+    placeholderStepInput:   "e.g. Prepare utensils",
+    placeholderStepMore:    "More steps?",
+    placeholderStepAdding:  "Add more steps?",
+    placeholderStepRequired: "Please enter steps first!",
+
+    // Dynamische Meldungen (steps.js / timer-steps.js)
+    titleExists:         "\"{title}\" already exists.",
+    confirmDeleteTitle:  "Really delete work title \"{title}\" and all associated steps?",
+    stepsSaved:          "\"{title}\": {count} {suffix} saved.",
+    stepSingular:        "step",
+    stepPlural:          "steps",
+
+    // aria-labels (dynamisch)
+    ariaEditStep:   "Edit step {index}",
+    ariaDeleteStep: "Delete step {index}",
+    ariaSaveChange: "Save change",
+    ariaCancelEdit: "Cancel editing",
+
+    // Session Drawer (dynamisch)
+    btnDone:  "Done",
+    btnClose: "Close",
   }
 };

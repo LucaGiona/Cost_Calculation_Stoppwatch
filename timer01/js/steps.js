@@ -21,19 +21,20 @@ function renderTitleOptions(titles, selectedValue = '') {
   const select    = document.getElementById('jobTitleSelect');
   const kalSelect = document.getElementById('kalTitelSelect');
 
-  select.innerHTML = '<option value="">— Titel auswählen —</option>';
-  if (kalSelect) kalSelect.innerHTML = '<option value="">— Titel auswählen —</option>';
+  const defaultOption = t('titleSelectDefault');
+  select.innerHTML = `<option value="">${defaultOption}</option>`;
+  if (kalSelect) kalSelect.innerHTML = `<option value="">${defaultOption}</option>`;
 
-  titles.forEach((t) => {
+  titles.forEach((titel) => {
     const opt = document.createElement('option');
-    opt.value = t;
-    opt.textContent = t;
+    opt.value = titel;
+    opt.textContent = titel;
     select.appendChild(opt);
 
     if (kalSelect) {
       const kalOpt = document.createElement('option');
-      kalOpt.value = t;
-      kalOpt.textContent = t;
+      kalOpt.value = titel;
+      kalOpt.textContent = titel;
       kalSelect.appendChild(kalOpt);
     }
   });
@@ -69,7 +70,6 @@ function selectJobTitle() {
   input.value = title;
   appState.steps.currentSavedTitle = title;
 
-  // Schritte des gewählten Titels laden
   appState.steps.list.length = 0;
   appState.steps.list.push(...loadStepsForTitle(title));
   renderSteps();
@@ -88,39 +88,40 @@ function editTitle() {
 
 function saveTitle() {
   const titleInput = document.getElementById('jobTitleInput');
+  const titleError = document.getElementById('jobTitleError');
   const title      = titleInput.value.trim();
 
   if (!title) {
     titleInput.classList.add('input--error');
-    document.getElementById('jobTitleError').classList.remove('hidden');
+    titleError.textContent = t('titleError');
+    titleError.classList.remove('hidden');
     titleInput.focus();
     return;
   }
 
   titleInput.classList.remove('input--error');
-  document.getElementById('jobTitleError').classList.add('hidden');
+  titleError.classList.add('hidden');
 
   const store = getDataStore();
 
   if (appState.steps.currentSavedTitle && appState.steps.currentSavedTitle !== title) {
-    // Kollision prüfen: neuer Titel existiert bereits
     if (store.arbeitstitel.includes(title)) {
       titleInput.classList.add('input--error');
-      document.getElementById('jobTitleError').textContent = `„${title}" existiert bereits.`;
-      document.getElementById('jobTitleError').classList.remove('hidden');
+      titleError.textContent = t('titleExists', { title });
+      titleError.classList.remove('hidden');
       titleInput.focus();
       return;
     }
-    // Umbenennen: Steps-Key migrieren
     store.schritte[title] = store.schritte[appState.steps.currentSavedTitle] || [];
     delete store.schritte[appState.steps.currentSavedTitle];
-    store.arbeitstitel = store.arbeitstitel.map(t => t === appState.steps.currentSavedTitle ? title : t);
+    store.arbeitstitel = store.arbeitstitel.map(titel =>
+      titel === appState.steps.currentSavedTitle ? title : titel
+    );
     if (store.aktiverTitel === appState.steps.currentSavedTitle) store.aktiverTitel = title;
     saveDataStore(store);
     appState.steps.currentSavedTitle = title;
     renderTitleOptions(store.arbeitstitel, title);
   } else if (!appState.steps.currentSavedTitle) {
-    // Neuer Titel
     if (!store.arbeitstitel.includes(title)) store.arbeitstitel.push(title);
     store.aktiverTitel = title;
     saveDataStore(store);
@@ -150,18 +151,17 @@ function deleteTitle() {
   const title = document.getElementById('jobTitleInput').value.trim();
   if (!title) return;
 
-  if (!confirm(`Arbeitstitel „${title}" und alle zugehörigen Schritte wirklich löschen?`)) return;
+  if (!confirm(t('confirmDeleteTitle', { title }))) return;
 
   const store = getDataStore();
   if (store.arbeitstitel.includes(title)) {
     delete store.schritte[title];
-    store.arbeitstitel = store.arbeitstitel.filter(t => t !== title);
+    store.arbeitstitel = store.arbeitstitel.filter(titel => titel !== title);
     if (store.aktiverTitel === title) store.aktiverTitel = null;
     saveDataStore(store);
     renderTitleOptions(store.arbeitstitel);
   }
 
-  // Formular leeren
   document.getElementById('jobTitleInput').value = '';
   appState.steps.list.length = 0;
   renderSteps();
@@ -173,9 +173,12 @@ function deleteTitle() {
 
 function addStep() {
   const titleInput = document.getElementById('jobTitleInput');
+  const titleError = document.getElementById('jobTitleError');
+
   if (!titleInput.value.trim()) {
     titleInput.classList.add('input--error');
-    document.getElementById('jobTitleError').classList.remove('hidden');
+    titleError.textContent = t('titleError');
+    titleError.classList.remove('hidden');
     titleInput.focus();
     return;
   }
@@ -202,6 +205,7 @@ function saveSteps() {
 
   if (!title) {
     titleInput.classList.add('input--error');
+    titleError.textContent = t('titleError');
     titleError.classList.remove('hidden');
     titleInput.focus();
     return;
@@ -210,8 +214,7 @@ function saveSteps() {
   titleInput.classList.remove('input--error');
   titleError.classList.add('hidden');
 
-  // Noch nicht hinzugefügten Schritt im Input automatisch übernehmen
-  const stepInput = document.getElementById('stepInput');
+  const stepInput   = document.getElementById('stepInput');
   const pendingStep = stepInput.value.trim();
   if (pendingStep) {
     appState.steps.list.push(pendingStep);
@@ -226,22 +229,21 @@ function saveSteps() {
 
   const store = getDataStore();
 
-  // Umbenennen: alten Titel entfernen wenn der Name geändert wurde
   if (appState.steps.currentSavedTitle && appState.steps.currentSavedTitle !== title) {
-    // Kollision prüfen: neuer Titel existiert bereits
     if (store.arbeitstitel.includes(title)) {
       titleInput.classList.add('input--error');
-      titleError.textContent = `„${title}" existiert bereits.`;
+      titleError.textContent = t('titleExists', { title });
       titleError.classList.remove('hidden');
       titleInput.focus();
       return;
     }
     delete store.schritte[appState.steps.currentSavedTitle];
-    store.arbeitstitel = store.arbeitstitel.filter(t => t !== appState.steps.currentSavedTitle);
+    store.arbeitstitel = store.arbeitstitel.filter(
+      titel => titel !== appState.steps.currentSavedTitle
+    );
     if (store.aktiverTitel === appState.steps.currentSavedTitle) store.aktiverTitel = null;
   }
 
-  // Schritte + Titel + aktiverTitel in einem Schreibvorgang speichern
   store.schritte[title] = [...appState.steps.list];
   if (!store.arbeitstitel.includes(title)) store.arbeitstitel.push(title);
   store.aktiverTitel = title;
@@ -250,10 +252,12 @@ function saveSteps() {
   renderTitleOptions(store.arbeitstitel, title);
   appState.steps.currentSavedTitle = title;
 
-  const confirm = document.getElementById('saveConfirm');
-  confirm.textContent = `„${title}": ${appState.steps.list.length} Schritt${appState.steps.list.length > 1 ? 'e' : ''} gespeichert.`;
-  confirm.classList.remove('hidden');
-  setTimeout(() => confirm.classList.add('hidden'), 3000);
+  const count    = appState.steps.list.length;
+  const suffix   = count === 1 ? t('stepSingular') : t('stepPlural');
+  const confirmEl = document.getElementById('saveConfirm');
+  confirmEl.textContent = t('stepsSaved', { title, count, suffix });
+  confirmEl.classList.remove('hidden');
+  setTimeout(() => confirmEl.classList.add('hidden'), 3000);
 }
 
 // ─── Schritte rendern ─────────────────────────────────────────────────────────
@@ -271,22 +275,23 @@ function updateStepPlaceholder() {
   const input = document.getElementById('stepInput');
   if (!input || input.classList.contains('input--error')) return;
   input.placeholder = appState.steps.list.length > 0
-    ? 'Noch mehr Schritte?'
-    : 'z.B. Vorbereitung Utensilien';
+    ? t('placeholderStepMore')
+    : t('placeholderStepInput');
 }
 
 function renderSteps() {
   const list = document.getElementById('stepList');
   list.innerHTML = '';
+
   appState.steps.list.forEach((step, index) => {
     const li = document.createElement('li');
 
     const text = document.createElement('span');
-    text.className = 'step-text';
+    text.className   = 'step-text';
     text.textContent = step;
 
-    const btnEdit   = makeIconBtn('pencil',  'step-btn--edit',   `Schritt ${index + 1} bearbeiten`, () => editStep(index));
-    const btnDelete = makeIconBtn('trash-2', 'step-btn--delete', `Schritt ${index + 1} löschen`,    () => deleteStep(index));
+    const btnEdit   = makeIconBtn('pencil',  'step-btn--edit',   t('ariaEditStep',   { index: index + 1 }), () => editStep(index));
+    const btnDelete = makeIconBtn('trash-2', 'step-btn--delete', t('ariaDeleteStep', { index: index + 1 }), () => deleteStep(index));
 
     li.appendChild(text);
     li.appendChild(btnEdit);
@@ -303,13 +308,13 @@ function editStep(index) {
   const li   = list.children[index];
 
   const input = document.createElement('input');
-  input.type  = 'text';
-  input.value = appState.steps.list[index];
+  input.type      = 'text';
+  input.value     = appState.steps.list[index];
   input.className = 'step-edit-input';
-  input.setAttribute('aria-label', `Schritt ${index + 1} bearbeiten`);
+  input.setAttribute('aria-label', t('ariaEditStep', { index: index + 1 }));
 
-  const btnSave   = makeIconBtn('check', 'step-btn--save',   'Änderung speichern',    confirmEdit);
-  const btnCancel = makeIconBtn('x',     'step-btn--cancel', 'Bearbeitung abbrechen', () => renderSteps());
+  const btnSave   = makeIconBtn('check', 'step-btn--save',   t('ariaSaveChange'), confirmEdit);
+  const btnCancel = makeIconBtn('x',     'step-btn--cancel', t('ariaCancelEdit'), () => renderSteps());
 
   function confirmEdit() {
     const newValue = input.value.trim();
@@ -341,17 +346,14 @@ function deleteStep(index) {
 document.addEventListener('DOMContentLoaded', () => {
   migrateIfNeeded();
 
-  // Initiale Zustand: Schritt-Eingabe deaktivieren solange kein Titel vorhanden
   updateStepInputState();
 
-  // Alle gespeicherten Titel ins Dropdown laden
   const store = getDataStore();
   renderTitleOptions(store.arbeitstitel);
 
-  // Letzten aktiven Titel + seine Schritte wiederherstellen
   const aktiverTitel = store.aktiverTitel;
   if (aktiverTitel && store.arbeitstitel.includes(aktiverTitel)) {
-    document.getElementById('jobTitleInput').value = aktiverTitel;
+    document.getElementById('jobTitleInput').value  = aktiverTitel;
     document.getElementById('jobTitleSelect').value = aktiverTitel;
     appState.steps.currentSavedTitle = aktiverTitel;
     appState.steps.list.push(...(store.schritte[aktiverTitel] || []));
@@ -359,6 +361,5 @@ document.addEventListener('DOMContentLoaded', () => {
     updateStepInputState();
   }
 
-  // Icons für statische Buttons (Stift, Mülleimer) rendern
   lucide.createIcons();
 });

@@ -27,10 +27,10 @@ function startSession() {
   if (appState.steps.list.length === 0) {
     const input = document.getElementById('stepInput');
     if (input) {
-      input.placeholder = 'Bitte zuerst Schritte eingeben!';
+      input.placeholder = t('placeholderStepRequired');
       input.classList.add('input--error');
       setTimeout(() => {
-        input.placeholder = 'z.B. Vorbereitung Utensilien';
+        input.placeholder = t('placeholderStepInput');
         input.classList.remove('input--error');
       }, 2500);
     }
@@ -41,7 +41,7 @@ function startSession() {
   const stepInput = document.getElementById('stepInput');
   if (stepInput) {
     stepInput.classList.remove('input--error');
-    stepInput.placeholder = 'Weitere Schritte hinzufügen?';
+    stepInput.placeholder = t('placeholderStepAdding');
   }
 
   // Timer explizit auf 0 zurücksetzen
@@ -117,7 +117,7 @@ function endSession() {
 
   const btnCancel = document.getElementById('btnSessionCancel');
   if (btnCancel) {
-    btnCancel.textContent = 'Schließen';
+    btnCancel.textContent = t('btnClose');
     btnCancel.onclick     = closeDrawer;
   }
 
@@ -164,7 +164,7 @@ function openDrawer() {
 
   const btnCancel = document.getElementById('btnSessionCancel');
   if (btnCancel) {
-    btnCancel.textContent = 'Abbrechen / Stop';
+    btnCancel.textContent = t('btnSessionCancel');
     btnCancel.onclick     = cancelSession;
   }
 }
@@ -298,8 +298,8 @@ function updateDrawerNextButton() {
   const btnNext = document.getElementById('btnSessionNext');
   if (!btnNext) return;
   btnNext.textContent = (appState.session.currentStepIndex === appState.steps.list.length - 1)
-    ? 'Fertig'
-    : 'Nächster Schritt';
+    ? t('btnDone')
+    : t('btnSessionNext');
 }
 
 // ─── Hauptseite: aktiven Schritt hervorheben ──────────────────────────────────
@@ -346,8 +346,8 @@ function showTotal(ms) {
     document.getElementById('stepList').after(totalEl);
   }
   totalEl.innerHTML =
-    '<span class="session-total__label">Total</span>' +
-    '<span class="session-total__time">' + formatDuration(ms) + '</span>';
+    `<span class="session-total__label">${t('drawerTotal')}</span>` +
+    `<span class="session-total__time">${formatDuration(ms)}</span>`;
   totalEl.classList.remove('hidden');
 }
 
@@ -391,9 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const hasSteps = stepList.children.length > 0;
       if (hasSteps) {
         input.classList.remove('input--error');
-        if (input.placeholder === 'Bitte zuerst Schritte eingeben!') {
-          input.placeholder = 'Weitere Schritte hinzufügen?';
-        }
+        updateStepPlaceholder();
       }
     });
     observer.observe(stepList, { childList: true });
