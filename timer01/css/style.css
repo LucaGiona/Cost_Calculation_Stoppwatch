@@ -84,10 +84,37 @@ body {
   pointer-events: none;
 }
 
-.btn-info {
+.header-actions-right {
   position: absolute;
   top: 16px;
   right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#langSelect {
+  height: 36px;
+  padding: 0 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+#langSelect:hover {
+  border-color: var(--text-muted);
+}
+
+.btn-info {
   width: 36px;
   height: 36px;
   padding: 0;
