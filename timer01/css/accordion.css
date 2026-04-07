@@ -1,18 +1,20 @@
 .section-heading {
   width: 100%;
-  height: auto;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between; 
   align-items: center;
-  gap: 40px;
+
   padding: 0 0 10px 0;
   margin-bottom: 24px;
+
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--border);
+
   cursor: pointer;
   user-select: none;
   text-align: left;
+
   color: var(--text);
   font-family: inherit;
   font-size: clamp(20px, 5vw, 28px);
@@ -20,34 +22,26 @@
   letter-spacing: 2px;
 }
 
-.section-title,
-.section-icon {
-  pointer-events: none;
+/* Text */
+.section-title {
+  pointer-events: auto; 
 }
 
+/* Pfeil */
 .section-icon {
-  flex-shrink: 0;
-  display: inline-block;
-  transform: rotate(-90deg);
-  transition: transform 0.25s ease;
+  pointer-events: auto; 
+  transition: transform 0.2s ease;
 }
 
 .section-heading[aria-expanded="true"] .section-icon {
-  transform: rotate(0deg);
+  transform: rotate(90deg);
 }
 
-.section-heading:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: 3px;
-}
-
+/* Accordion Body */
 .accordion-body {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.35s ease;
+  display: none;
 }
 
 .section-heading[aria-expanded="true"] + .accordion-body {
-  max-height: 2000px;
+  display: block;
 }
