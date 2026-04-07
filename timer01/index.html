@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/accordion.css">
   <link rel="stylesheet" href="css/timer-steps.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="js/theme.js" defer></script>
   <script src="js/appState.js" defer></script>
   <script src="js/stopwatch.js" defer></script>
   <script src="js/storage.js" defer></script>
@@ -23,8 +24,11 @@
 </head>
 <body>
 <header class="app-header">
-  <button class="btn-info" id="btnInfo" aria-label="Kurze Erklärung zur App">
-    <i data-lucide="info"></i>
+  <button class="btn-theme" id="btnThemeToggle" aria-label="Theme wechseln">
+    <i data-lucide="sun"></i>
+  </button>
+  <button class="btn-info" id="btnInfo" aria-label="Kurze Erklärung zur App">Info
+    <!-- <i data-lucide="info"></i> -->
   </button>
   <h1 class="app-title">Zeitbasierte Produktionskalkulation</h1>
   <p class="app-subtitle">

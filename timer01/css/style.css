@@ -15,6 +15,20 @@
   --text-muted:   #aaaaaa;
 }
 
+body.light {
+  --bg-body:      #f5f6fa;
+  --bg-card:      #ffffff;
+  --border:       #dcdfe6;
+  --text:         #1a1a1a;
+  --text-muted:   #666666;
+  --color-accent: #4c6ef5;
+  --color-start:  #2ecc71;
+  --color-pause:  #e6a800;
+  --color-stop:   #e74c3c;
+  --color-save:   #4212de;
+  --color-cancel: #888899;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -41,7 +55,34 @@ body {
   margin-bottom: 2rem;
 }
 
-/* ─── Info-Button ──────────────────────────────────────────────────────────── */
+/* ─── Header-Buttons (Theme + Info) ───────────────────────────────────────── */
+
+.btn-theme {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  border: none;
+  border-radius: 50%;
+  color: var(--bg-body);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-theme:hover { opacity: 0.8; }
+
+.btn-theme svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  pointer-events: none;
+}
 
 .btn-info {
   position: absolute;
@@ -232,7 +273,7 @@ body {
 button {
   width: clamp(90px, 25vw, 120px);
   height: clamp(44px, 10vw, 50px);
-  font-size: clamp(14px, 3.5vw, 18px);
+  font-size: clamp(11px, 3.5vw, 13px);
   font-family: 'IBM Plex Mono', monospace;
   font-weight: bold;
   border: none;
