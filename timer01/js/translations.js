@@ -17,7 +17,8 @@ const translations = {
     infoP3:       "In der Kalkulation bestimmst du deinen Zielpreis und die geplante Produktionszeit. Die App berechnet daraus deinen Brutto-Umsatz und gibt dir eine klare Orientierung für deine Preisstruktur.",
     infoCaption4: "Preis kalkulieren und Umsatz berechnen",
     infoP4:       "Für schnelle Einschätzungen kannst du die Kalkulation auch unabhängig von der Zeiterfassung nutzen und Zeiten manuell eingeben.",
-    infoCaption5: "Zeit manuell eingeben",
+    infoCaption5:    "Zeit manuell eingeben",
+    infoScreensNote: "Screenshots zeigen aktuell die deutsche Version der App.",
     infoP5Strong: "Für bessere Entscheidungen bei Zeit, Preis und Wirtschaftlichkeit.",
 
     // Arbeitsschritte
@@ -97,7 +98,8 @@ const translations = {
     infoP3:       "In the calculation, you set your target price and planned production time. The app calculates your gross revenue and gives you clear guidance for your pricing structure.",
     infoCaption4: "Calculate price and compute revenue",
     infoP4:       "For quick estimates, you can also use the calculation independently of time tracking and enter times manually.",
-    infoCaption5: "Enter time manually",
+    infoCaption5:    "Enter time manually",
+    infoScreensNote: "Screenshots currently show the German version of the app.",
     infoP5Strong: "For better decisions on time, price, and profitability.",
 
     // Arbeitsschritte
