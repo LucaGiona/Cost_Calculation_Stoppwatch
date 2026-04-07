@@ -97,11 +97,13 @@ body {
 .info-modal__panel {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 32px 28px 28px;
+  padding: 0;
   animation: modal-fade-in 0.2s ease;
 }
 
@@ -110,10 +112,31 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+.info-modal__header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px 16px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.info-modal__title {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
+  font-weight: bold;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
 .info-modal__close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
+  position: static;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -126,6 +149,7 @@ body {
   cursor: pointer;
   border-radius: 6px;
   transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
 }
 
 .info-modal__close:hover {
@@ -139,26 +163,47 @@ body {
   pointer-events: none;
 }
 
-.info-modal__title {
-  font-size: clamp(1.1rem, 3vw, 1.3rem);
-  font-weight: bold;
-  color: var(--text);
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-}
-
 .info-modal__body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  padding: 20px;
 }
 
 .info-modal__body p {
   font-size: clamp(0.85rem, 2vw, 0.95rem);
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+.info-modal__figure {
+  margin: 4px 0 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-modal__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-modal__image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.info-modal__body figcaption {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
 }
 
 .app-title {
