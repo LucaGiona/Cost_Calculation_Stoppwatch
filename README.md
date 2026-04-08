@@ -7,13 +7,7 @@
 ![Storage](https://img.shields.io/badge/storage-localStorage-orange)
 ![i18n](https://img.shields.io/badge/i18n-DE%20%7C%20EN-purple)
 
-🇬🇧 [English version](#english)
-
----
-
-## Preview
-
-![App Preview](/timer01/img/Stoppuhr.png)
+[GB English see below](#timer-with-calculation)
 
 ---
 
@@ -23,21 +17,9 @@ Eine browserbasierte Web-App zur Zeitmessung von Arbeitsabläufen und zur Kalkul
 
 ---
 
-## Screenshots im Überblick
+## Preview
 
-<p align="center">
-  <img src="/timer01/img/Arbeitstitel.png" width="45%" alt="Arbeitstitel">
-  <img src="/timer01/img/Schritte_eingeben.png" width="45%" alt="Schritte eingeben">
-</p>
-
-<p align="center">
-  <img src="/timer01/img/Stoppuhr.png" width="45%" alt="Stoppuhr">
-  <img src="/timer01/img/Kalkulation1.png" width="45%" alt="Kalkulation">
-</p>
-
-<p align="center">
-  <img src="/timer01/img/Schnelltest.png" width="45%" alt="Schnelltest">
-</p>
+![App Preview](/timer01/img/Stoppuhr.png)
 
 ---
 
@@ -149,17 +131,19 @@ timer01/
     ├── i18n.js
     └── translations.js
 ```
+
+---
+
 <a id="english"></a>
 
 # Timer with Calculation
 
+![Status](https://img.shields.io/badge/status-active-success)
+![Tech](https://img.shields.io/badge/tech-VanillaJS-blue)
+![Storage](https://img.shields.io/badge/storage-localStorage-orange)
+![i18n](https://img.shields.io/badge/i18n-DE%20%7C%20EN-purple)
+
 🇩🇪 [Deutsche Version](#top)
-
----
-
-## Preview
-
-![App Preview](/timer01/img/Stoppuhr.png)
 
 ---
 
@@ -168,22 +152,14 @@ timer01/
 A browser-based web app for timing work processes and calculating production costs — no backend, no framework, runs entirely in the browser.
 
 ---
+## Information
 
-## Screenshot Overview
+The screenshots in the info modal currently show the German version of the app.
 
-<p align="center">
-  <img src="/timer01/img/Arbeitstitel.png" width="45%" alt="Work title">
-  <img src="/timer01/img/Schritte_eingeben.png" width="45%" alt="Define steps">
-</p>
+---
+## Preview
 
-<p align="center">
-  <img src="/timer01/img/Stoppuhr.png" width="45%" alt="Stopwatch">
-  <img src="/timer01/img/Kalkulation1.png" width="45%" alt="Calculation">
-</p>
-
-<p align="center">
-  <img src="/timer01/img/Schnelltest.png" width="45%" alt="Quick time entry">
-</p>
+![App Preview](/timer01/img/Stoppuhr.png)
 
 ---
 
@@ -197,13 +173,13 @@ At the end you export the measured time into the calculation, enter your price a
 
 ## Typical Workflow
 
-1. Enter and save a work title  
-2. Define work steps  
-3. Start session → stopwatch runs  
-4. Complete steps one by one → time is measured  
-5. End session → times are displayed  
-6. Export to calculation  
-7. Enter price → revenue is calculated  
+1. Enter and save a work title
+2. Define work steps
+3. Start session → stopwatch runs
+4. Complete steps one by one → time is measured
+5. End session → times are displayed
+6. Export to calculation
+7. Enter price → revenue is calculated
 
 ---
 
@@ -215,23 +191,19 @@ At the end you export the measured time into the calculation, enter your price a
 
 ![Define Steps](/timer01/img/Schritte_eingeben.png)
 
-- Save any number of titles  
-- Create, edit and delete steps  
-- Rename or remove titles  
-- Last active title is automatically restored  
-
----
+- Save any number of titles
+- Create, edit and delete steps
+- Rename or remove titles
+- Last active title is automatically restored
 
 ### Stopwatch & Session
 
 ![Stopwatch](/timer01/img/Stoppuhr.png)
 
-- Precise time measurement  
-- Step-based session  
-- Drawer shows progress and times  
-- Session can be cancelled at any time  
-
----
+- Precise time measurement
+- Step-based session
+- Drawer shows progress and times
+- Session can be cancelled at any time
 
 ### Calculation
 
@@ -239,27 +211,23 @@ At the end you export the measured time into the calculation, enter your price a
 
 ![Quick Time Entry](/timer01/img/Schnelltest.png)
 
-- VAT calculator (7%, 19%, custom)  
-- Import time or enter manually  
-- Calculate revenue per time period  
-- Automatic reset when switching titles  
-
----
+- VAT calculator (7%, 19%, custom)
+- Import time or enter manually
+- Calculate revenue per time period
+- Automatic reset when switching titles
 
 ### Data Persistence
 
-- Stored via `localStorage`  
-- Central `dataStore` format  
-
----
+- Stored via `localStorage`
+- Central `dataStore` format
 
 ### Technical
 
-- Vanilla JS (no framework)  
-- Modular structure  
-- Central `appState`  
-- Event handling via `addEventListener`  
-- Responsive design  
+- Vanilla JS (no framework)
+- Modular structure
+- Central `appState`
+- Event handling via `addEventListener`
+- Responsive design
 
 ---
 
@@ -269,14 +237,11 @@ The app supports German and English via a lightweight client-side i18n system.
 
 ### Implementation
 
-- Texts via `translations.js`  
-- HTML uses `data-i18n` and `data-i18n-placeholder`  
-- Dynamic texts via `t(key, vars)`  
-- Language stored in `localStorage`  
+- Texts via `translations.js`
+- HTML uses `data-i18n` and `data-i18n-placeholder`
+- Dynamic texts via `t(key, vars)`
+- Language is stored in `localStorage`
 
-### Limitation
-
-Screenshots in the info modal currently show the German version of the app.
 
 ---
 
@@ -302,3 +267,4 @@ timer01/
     ├── ui.js
     ├── i18n.js
     └── translations.js
+```
