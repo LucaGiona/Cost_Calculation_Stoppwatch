@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 # Timer mit Kalkulation
 
 ![Status](https://img.shields.io/badge/status-active-success)
@@ -9,33 +11,33 @@
 
 ---
 
+## Preview
+
+![App Preview](/timer01/img/Stoppuhr.png)
+
+---
+
 ## Überblick
 
 Eine browserbasierte Web-App zur Zeitmessung von Arbeitsabläufen und zur Kalkulation von Produktionskosten — ohne Backend, ohne Framework, läuft komplett lokal im Browser.
 
 ---
 
-## Screenshots
+## Screenshots im Überblick
 
-### Arbeitstitel & Schritte
+<p align="center">
+  <img src="/timer01/img/Arbeitstitel.png" width="45%" alt="Arbeitstitel">
+  <img src="/timer01/img/Schritte_eingeben.png" width="45%" alt="Schritte eingeben">
+</p>
 
-![Arbeitstitel](/timer01/img/Arbeitstitel.png)
+<p align="center">
+  <img src="/timer01/img/Stoppuhr.png" width="45%" alt="Stoppuhr">
+  <img src="/timer01/img/Kalkulation1.png" width="45%" alt="Kalkulation">
+</p>
 
-### Schritte definieren
-
-![Schritte](/timer01/img/Schritte_eingeben.png)
-
-### Stoppuhr / Session
-
-![Stoppuhr](/timer01/img/Stoppuhr.png)
-
-### Kalkulation
-
-![Kalkulation](/timer01/img/Kalkulation1.png)
-
-### Schnelle Zeit-Eingabe
-
-![Schnelltest](/timer01/img/Schnelltest.png)
+<p align="center">
+  <img src="/timer01/img/Schnelltest.png" width="45%" alt="Schnelltest">
+</p>
 
 ---
 
@@ -63,6 +65,10 @@ Am Ende exportierst du die gemessene Zeit in die Kalkulation, gibst deinen Preis
 
 ### Arbeitstitel & Schritte
 
+![Arbeitstitel](/timer01/img/Arbeitstitel.png)
+
+![Schritte](/timer01/img/Schritte_eingeben.png)
+
 - Beliebig viele Titel speichern
 - Schritte erstellen, bearbeiten, löschen
 - Titel umbenennen oder entfernen
@@ -70,12 +76,18 @@ Am Ende exportierst du die gemessene Zeit in die Kalkulation, gibst deinen Preis
 
 ### Stoppuhr & Session
 
+![Stoppuhr](/timer01/img/Stoppuhr.png)
+
 - Präzise Zeitmessung
 - Schrittbasierte Session
 - Drawer zeigt Fortschritt und Zeiten
 - Session jederzeit abbrechbar
 
 ### Kalkulation
+
+![Kalkulation](/timer01/img/Kalkulation1.png)
+
+![Schnelltest](/timer01/img/Schnelltest.png)
 
 - MwSt-Rechner (7 %, 19 %, custom)
 - Zeit importieren oder manuell eingeben
@@ -137,14 +149,17 @@ timer01/
     ├── i18n.js
     └── translations.js
 ```
-
----
-
-###### English
+<a id="english"></a>
 
 # Timer with Calculation
 
 🇩🇪 [Deutsche Version](#top)
+
+---
+
+## Preview
+
+![App Preview](/timer01/img/Stoppuhr.png)
 
 ---
 
@@ -154,27 +169,21 @@ A browser-based web app for timing work processes and calculating production cos
 
 ---
 
-## Screenshots
+## Screenshot Overview
 
-### Work Title & Steps
+<p align="center">
+  <img src="/timer01/img/Arbeitstitel.png" width="45%" alt="Work title">
+  <img src="/timer01/img/Schritte_eingeben.png" width="45%" alt="Define steps">
+</p>
 
-![Arbeitstitel](/timer01/img/Arbeitstitel.png)
+<p align="center">
+  <img src="/timer01/img/Stoppuhr.png" width="45%" alt="Stopwatch">
+  <img src="/timer01/img/Kalkulation1.png" width="45%" alt="Calculation">
+</p>
 
-### Define Steps
-
-![Schritte](/timer01/img/Schritte_eingeben.png)
-
-### Stopwatch / Session
-
-![Stoppuhr](/timer01/img/Stoppuhr.png)
-
-### Calculation
-
-![Kalkulation](/timer01/img/Kalkulation1.png)
-
-### Quick Time Entry
-
-![Schnelltest](/timer01/img/Schnelltest.png)
+<p align="center">
+  <img src="/timer01/img/Schnelltest.png" width="45%" alt="Quick time entry">
+</p>
 
 ---
 
@@ -188,13 +197,13 @@ At the end you export the measured time into the calculation, enter your price a
 
 ## Typical Workflow
 
-1. Enter and save a work title
-2. Define work steps
-3. Start session → stopwatch runs
-4. Complete steps one by one → time is measured
-5. End session → times are displayed
-6. Export to calculation
-7. Enter price → revenue is calculated
+1. Enter and save a work title  
+2. Define work steps  
+3. Start session → stopwatch runs  
+4. Complete steps one by one → time is measured  
+5. End session → times are displayed  
+6. Export to calculation  
+7. Enter price → revenue is calculated  
 
 ---
 
@@ -202,37 +211,55 @@ At the end you export the measured time into the calculation, enter your price a
 
 ### Work Title & Steps
 
-- Save any number of titles
-- Create, edit and delete steps
-- Rename or remove titles
-- Last active title is automatically restored
+![Work Title](/timer01/img/Arbeitstitel.png)
+
+![Define Steps](/timer01/img/Schritte_eingeben.png)
+
+- Save any number of titles  
+- Create, edit and delete steps  
+- Rename or remove titles  
+- Last active title is automatically restored  
+
+---
 
 ### Stopwatch & Session
 
-- Precise time measurement
-- Step-based session
-- Drawer shows progress and times
-- Session can be cancelled at any time
+![Stopwatch](/timer01/img/Stoppuhr.png)
+
+- Precise time measurement  
+- Step-based session  
+- Drawer shows progress and times  
+- Session can be cancelled at any time  
+
+---
 
 ### Calculation
 
-- VAT calculator (7%, 19%, custom)
-- Import time or enter manually
-- Calculate revenue per time period
-- Automatic reset when switching titles
+![Calculation](/timer01/img/Kalkulation1.png)
+
+![Quick Time Entry](/timer01/img/Schnelltest.png)
+
+- VAT calculator (7%, 19%, custom)  
+- Import time or enter manually  
+- Calculate revenue per time period  
+- Automatic reset when switching titles  
+
+---
 
 ### Data Persistence
 
-- Stored via `localStorage`
-- Central `dataStore` format
+- Stored via `localStorage`  
+- Central `dataStore` format  
+
+---
 
 ### Technical
 
-- Vanilla JS (no framework)
-- Modular structure
-- Central `appState`
-- Event handling via `addEventListener`
-- Responsive design
+- Vanilla JS (no framework)  
+- Modular structure  
+- Central `appState`  
+- Event handling via `addEventListener`  
+- Responsive design  
 
 ---
 
@@ -242,10 +269,10 @@ The app supports German and English via a lightweight client-side i18n system.
 
 ### Implementation
 
-- Texts via `translations.js`
-- HTML uses `data-i18n` and `data-i18n-placeholder`
-- Dynamic texts via `t(key, vars)`
-- Language stored in `localStorage`
+- Texts via `translations.js`  
+- HTML uses `data-i18n` and `data-i18n-placeholder`  
+- Dynamic texts via `t(key, vars)`  
+- Language stored in `localStorage`  
 
 ### Limitation
 
@@ -275,4 +302,3 @@ timer01/
     ├── ui.js
     ├── i18n.js
     └── translations.js
-```
