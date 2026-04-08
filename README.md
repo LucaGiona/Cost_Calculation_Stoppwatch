@@ -19,23 +19,23 @@ Eine browserbasierte Web-App zur Zeitmessung von Arbeitsabläufen und zur Kalkul
 
 ### Arbeitstitel & Schritte
 
-![Arbeitstitel](img/Arbeitstitel.png)
+![Arbeitstitel](/timer01/img/Arbeitstitel.png)
 
 ### Schritte definieren
 
-![Schritte](img/Schritte_eingeben.png)
+![Schritte](/timer01/img/Schritte_eingeben.png)
 
 ### Stoppuhr / Session
 
-![Stoppuhr](img/Stoppuhr.png)
+![Stoppuhr](/timer01/img/Stoppuhr.png)
 
 ### Kalkulation
 
-![Kalkulation](img/Kalkulation1.png)
+![Kalkulation](/timer01/img/Kalkulation1.png)
 
 ### Schnelle Zeit-Eingabe
 
-![Schnelltest](img/Schnelltest.png)
+![Schnelltest](/timer01/img/Schnelltest.png)
 
 ---
 
@@ -166,15 +166,15 @@ A browser-based web app for timing work processes and calculating production cos
 
 ### Stopwatch / Session
 
-![Stoppuhr](img/Stoppuhr.png)
+![Stoppuhr](/timer01/img/Stoppuhr.png)
 
 ### Calculation
 
-![Kalkulation](img/Kalkulation1.png)
+![Kalkulation](/timer01/img/Kalkulation1.png)
 
 ### Quick Time Entry
 
-![Schnelltest](img/Schnelltest.png)
+![Schnelltest](/timer01/img/Schnelltest.png)
 
 ---
 
