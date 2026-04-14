@@ -131,8 +131,52 @@ timer01/
     ├── i18n.js
     └── translations.js
 ```
+## Ideen zur Weiterentwicklung der Web-App
+
+Die Anwendung bietet eine Grundlage und kann in mehreren Richtungen sinnvoll erweitert werden, um Funktionalität, Skalierbarkeit und Nutzererlebnis zu verbessern.
+
+### Progressive Web App (PWA)
+
+Ein naheliegender nächster Schritt ist die Umwandlung in eine **Progressive Web App (PWA)**. Dadurch kann die Anwendung wie eine **Desktop-App installiert** werden und ist auch **offline nutzbar**. Dies erhöht die Alltagstauglichkeit erheblich und sorgt für ein **nativeres Nutzererlebnis**.
 
 ---
+
+### Umstellung auf TypeScript
+
+Die Migration des Codes zu **TypeScript** würde die **Codequalität** und **Wartbarkeit** deutlich verbessern. Durch **statische Typisierung** können Fehler früh erkannt werden, was besonders bei wachsender Komplexität der App von Vorteil ist. Zudem erleichtert es die **Skalierung** und Zusammenarbeit an größeren Projekten.
+
+---
+
+### Erweiterung mit Datenbank
+
+Ein großer Entwicklungsschritt besteht in der Integration einer **Datenbank**. Dadurch kann die App von einer rein lokalen Lösung zu einem **persistenten System** weiterentwickelt werden.
+
+Mögliche Anwendungsfälle:
+- Verwaltung von **Rezepturen** (z. B. Cocktails oder Gerichte)
+- Speicherung von **Arbeitsabläufen** und **Zeitdaten**
+- Erweiterung um **Benutzerkonten** und individuelle Daten
+
+Alternativ kann auch ein praxisnaher Use Case aus der Pflege integriert werden:
+- zeitliches Erfassen von **Pflegemaßnahmen**
+- Analyse von **Arbeitsprozessen**
+- Unterstützung bei **Zeit- und Ressourcenplanung**
+
+---
+
+### Erweiterung durch visuelle Erkennung
+
+Langfristig kann die App durch den Einsatz von **Kamera** und **Mustererkennung** erweitert werden. Ziel ist die automatische Erkennung von **Arbeitsschritten** durch Analyse von **Handbewegungen** oder Abläufen.
+
+Potenzielle Vorteile:
+- **Automatisierte Zeiterfassung**
+- Reduktion manueller Eingaben
+- Höhere **Genauigkeit** bei der Analyse von Prozessen
+
+---
+
+### Zusammenfassung
+
+Durch die Kombination aus **PWA**, **TypeScript**, **Datenbankintegration** und optionaler **visueller Erkennung** kann sich die Anwendung von einem einfachen Tool zu einer **skalierbaren, intelligenten Plattform** entwickeln.---
 
 <a id="english"></a>
 
@@ -268,3 +312,49 @@ timer01/
     ├── i18n.js
     └── translations.js
 ```
+## Ideas for Further Development of the Web App
+
+The application provides a solid foundation and can be extended in several directions to improve functionality, scalability, and user experience.
+
+### Progressive Web App (PWA)
+
+A logical next step is to transform the application into a **Progressive Web App (PWA)**. This allows the app to be **installed like a desktop application** and used **offline**. It significantly improves usability in everyday scenarios and creates a more **native user experience**.
+
+---
+
+### Migration to TypeScript
+
+Refactoring the codebase to **TypeScript** would significantly enhance **code quality** and **maintainability**. With **static typing**, errors can be detected early, which becomes increasingly important as the application grows in complexity. It also supports better **scalability** and collaboration.
+
+---
+
+### Database Integration
+
+A major development step is the integration of a **database**. This would transform the app from a purely local solution into a **persistent system**.
+
+Possible use cases:
+- Managing **recipes** (e.g., cocktails or dishes)
+- Storing **workflows** and **time data**
+- Adding **user accounts** and personalized data
+
+Alternatively, a practical use case from healthcare could be implemented:
+- Documentation of **care activities**
+- Analysis of **work processes**
+- Support for **time and resource planning**
+
+---
+
+### Extension with Visual Recognition
+
+In the long term, the app could be enhanced with **camera integration** and **pattern recognition**. The goal is to automatically detect **work steps** by analyzing **hand movements** or process sequences.
+
+Potential benefits:
+- **Automated time tracking**
+- Reduced manual input
+- Increased **accuracy** in process analysis
+
+---
+
+### Summary
+
+By combining **PWA**, **TypeScript**, **database integration**, and optional **visual recognition**, the application can evolve from a simple tool into a **scalable, intelligent platform**.
